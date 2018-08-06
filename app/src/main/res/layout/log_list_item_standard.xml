@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#999999">
+
+    <TextView
+        android:id="@+id/timestamp_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="5dp"
+        android:textStyle="italic"
+        android:layout_marginTop="5dp"
+        android:textSize="12sp"
+        android:text="[TIMESTAMP]"/>
+
+    <TextView
+        android:id="@+id/log_level_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/timestamp_label"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/standardLogText"
+        android:text="[LEVEL]"/>
+
+    <TextView
+        android:id="@+id/method_call_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:clickable="true"
+        android:focusable="true"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="@color/standardLogText"
+        android:text="[Method Call]" />
+
+    <CheckBox
+        android:id="@+id/checkbox_log_entry_is_saved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="5dp" />
+
+</RelativeLayout>

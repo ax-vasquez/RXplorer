@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:id="@+id/logger_view_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="35dp"
+        android:orientation="vertical"
+        android:layout_marginTop="250dp"
+        android:background="@color/colorPrimaryDark">
+
+        <Button
+            android:id="@+id/collapse_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:text="RESET"
+            android:layout_alignParentEnd="true"/>
+
+        <TextView
+            android:id="@+id/verbose_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="5dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/standardLogText"
+            android:text="VERBOSE"/>
+
+        <TextView
+            android:id="@+id/info_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/verbose_label"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/textUnselected"
+            android:text="INFO"/>
+
+        <TextView
+            android:id="@+id/warn_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/info_label"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/textUnselected"
+            android:text="WARN"/>
+
+        <TextView
+            android:id="@+id/error_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/warn_label"
+            android:layout_marginStart="10dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@color/textUnselected"
+            android:text="ERROR"/>
+
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/logger_view_log_output"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/logger_view_toolbar"
+        android:background="#444444"/>
+
+    <Button
+        android:id="@+id/sim_normal_event_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="40dp"
+        android:text="Normal Event" />
+
+    <Button
+        android:id="@+id/sim_info_event_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/sim_normal_event_btn"
+        android:layout_marginEnd="70dp"
+        android:text="Info Event" />
+
+    <Button
+        android:id="@+id/sim_warn_event_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/sim_info_event_btn"
+        android:layout_marginTop="135dp"
+        android:text="Warn Event" />
+
+    <Button
+        android:id="@+id/sim_error_event_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/sim_normal_event_btn"
+        android:layout_alignTop="@+id/sim_warn_event_btn"
+        android:text="Error Event" />
+
+</RelativeLayout>
