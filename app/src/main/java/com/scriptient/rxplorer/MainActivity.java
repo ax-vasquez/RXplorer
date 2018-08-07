@@ -336,7 +336,7 @@ public class MainActivity extends RxActivity {
 
                 logEntry.setTimestamp( timestamp );
                 logEntry.setLogLevel( LOG_LEVEL_VERBOSE );
-                logEntry.setParentMethod( TAG );        // TODO: Change from parent method to class (better readability for now)
+                logEntry.setParentMethod( TAG );
 
                 addNewLogEntry( v, logEntry );
 
@@ -376,7 +376,7 @@ public class MainActivity extends RxActivity {
 
                 logEntry.setTimestamp( timestamp );
                 logEntry.setLogLevel( LOG_LEVEL_WARN );
-                logEntry.setParentMethod( TAG );        // TODO: Change from parent method to class (better readability for now)
+                logEntry.setParentMethod( TAG );
 
                 addNewLogEntry( v, logEntry );
 
@@ -397,7 +397,7 @@ public class MainActivity extends RxActivity {
 
                 logEntry.setTimestamp( timestamp );
                 logEntry.setLogLevel( LOG_LEVEL_ERROR );
-                logEntry.setParentMethod( TAG );        // TODO: Change from parent method to class (better readability for now)
+                logEntry.setParentMethod( TAG );
 
                 addNewLogEntry( v, logEntry );
 
