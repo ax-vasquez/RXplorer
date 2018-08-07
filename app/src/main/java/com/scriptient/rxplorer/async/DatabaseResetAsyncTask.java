@@ -27,7 +27,11 @@ public class DatabaseResetAsyncTask extends AsyncTask<Void, Void, Void> {
 
         for ( AppEmbeddedLogEntry entry : allEntries ) {
 
-            AppEmbeddedLogEntryRepo.deleteLogEntry( viewWeakReference.get().getContext(), entry );
+            if ( !entry.getSaved() ) {
+
+                AppEmbeddedLogEntryRepo.deleteLogEntry( viewWeakReference.get().getContext(), entry );
+
+            }
 
         }
 

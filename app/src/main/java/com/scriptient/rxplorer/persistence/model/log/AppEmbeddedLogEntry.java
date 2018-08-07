@@ -46,6 +46,13 @@ public class AppEmbeddedLogEntry {
     @ColumnInfo(name = "parent_method")
     private String parentMethod;
 
+    /**
+     * Indicates if the user has saved this log entry (saved log entries are protected from being
+     * deleted when resetting the database
+     */
+    @ColumnInfo(name = "saved")
+    private Boolean saved;
+
     public int getLogId() {
         return logId;
     }
@@ -66,6 +73,10 @@ public class AppEmbeddedLogEntry {
         return parentMethod;
     }
 
+    public Boolean getSaved() {
+        return saved;
+    }
+
     public void setLogId(int logId) {
         this.logId = logId;
     }
@@ -84,5 +95,9 @@ public class AppEmbeddedLogEntry {
 
     public void setParentMethod(String parentMethod) {
         this.parentMethod = parentMethod;
+    }
+
+    public void setSaved(Boolean saved) {
+        this.saved = saved;
     }
 }

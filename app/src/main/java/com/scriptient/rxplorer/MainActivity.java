@@ -308,13 +308,28 @@ public class MainActivity extends RxActivity {
      */
     private void _clearUnsavedLogEntries() {
 
-        int itemCount = mAdapter.getItemCount();
+        Log.i(TAG, "_clearUnsavedLogEntries: clearing unsaved log entries");
 
         databaseResetAsyncTask = new DatabaseResetAsyncTask( this.mRecyclerView );
         databaseResetAsyncTask.execute();
 
-        mAdapter.notifyItemRangeRemoved( LoggerViewAdapter.DATA_SET_START, itemCount );
-        mAdapter.setCurrentLogData( new ArrayList<AppEmbeddedLogEntry>() );
+        _clearCachedContentsFromRecyclerView();
+        Log.i(TAG, "_clearUnsavedLogEntries: All old items flushed from adapter");
+
+        fetchAsyncTask = new DatabaseFetchAsyncTask( getCurrentFocus(), DatabaseFetchAsyncTask.FETCH_ALL, null, null );
+        fetchAsyncTask.execute();
+        List<AppEmbeddedLogEntry> remainingLogEntries = new ArrayList<>();
+        try {
+            Log.i(TAG, "_clearUnsavedLogEntries: Fetching remaining log entries");
+            remainingLogEntries = fetchAsyncTask.get();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
+
+        Log.i(TAG, "_clearUnsavedLogEntries: Setting remaining log entries as new data set");
+        _updateRecyclerViewDataSet( remainingLogEntries );
 
     }
 
@@ -337,6 +352,7 @@ public class MainActivity extends RxActivity {
                 logEntry.setTimestamp( timestamp );
                 logEntry.setLogLevel( LOG_LEVEL_VERBOSE );
                 logEntry.setParentMethod( TAG );
+                logEntry.setSaved( false );
 
                 addNewLogEntry( v, logEntry );
 
@@ -357,6 +373,7 @@ public class MainActivity extends RxActivity {
                 logEntry.setTimestamp( timestamp );
                 logEntry.setLogLevel( LOG_LEVEL_INFO );
                 logEntry.setParentMethod( TAG );
+                logEntry.setSaved( false );
 
                 addNewLogEntry( v, logEntry );
 
@@ -377,6 +394,7 @@ public class MainActivity extends RxActivity {
                 logEntry.setTimestamp( timestamp );
                 logEntry.setLogLevel( LOG_LEVEL_WARN );
                 logEntry.setParentMethod( TAG );
+                logEntry.setSaved( false );
 
                 addNewLogEntry( v, logEntry );
 
@@ -398,6 +416,7 @@ public class MainActivity extends RxActivity {
                 logEntry.setTimestamp( timestamp );
                 logEntry.setLogLevel( LOG_LEVEL_ERROR );
                 logEntry.setParentMethod( TAG );
+                logEntry.setSaved( false );
 
                 addNewLogEntry( v, logEntry );
 
@@ -517,7 +536,7 @@ public class MainActivity extends RxActivity {
     public class ResetDataClickListener implements View.OnClickListener {
 
         @Override
-        public void onClick( View v ) {
+        public void onClick(View v ) {
 
             new AlertDialog.Builder( v.getContext() )
                     .setTitle( "Clear Unsaved Log Entries" )
