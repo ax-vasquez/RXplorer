@@ -163,6 +163,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
             // Commit changes to the app database
             modifyAsyncTask = new ModifyDatabaseAsyncTask( view, ModifyDatabaseAsyncTask.MODIFY_UPDATE, embeddedLogEntry );
             modifyAsyncTask.execute();
+            notifyItemInserted( getItemCount() );
 
         }
 

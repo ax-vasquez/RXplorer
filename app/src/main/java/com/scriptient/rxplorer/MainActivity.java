@@ -316,8 +316,25 @@ public class MainActivity extends RxActivity {
         _clearCachedContentsFromRecyclerView();
         Log.i(TAG, "_clearUnsavedLogEntries: All old items flushed from adapter");
 
-        fetchAsyncTask = new DatabaseFetchAsyncTask( getCurrentFocus(), DatabaseFetchAsyncTask.FETCH_ALL, null, null );
+        switch ( currentLogState ) {
+
+            case LOG_LEVEL_VERBOSE:
+                fetchAsyncTask = new DatabaseFetchAsyncTask( getCurrentFocus(), DatabaseFetchAsyncTask.FETCH_ALL, null, null );
+                break;
+            case LOG_LEVEL_INFO:
+                fetchAsyncTask = new DatabaseFetchAsyncTask( getCurrentFocus(), DatabaseFetchAsyncTask.FETCH_LOG_LEVEL, LOG_LEVEL_INFO, null );
+                break;
+            case LOG_LEVEL_WARN:
+                fetchAsyncTask = new DatabaseFetchAsyncTask( getCurrentFocus(), DatabaseFetchAsyncTask.FETCH_LOG_LEVEL, LOG_LEVEL_WARN, null );
+                break;
+            case LOG_LEVEL_ERROR:
+                fetchAsyncTask = new DatabaseFetchAsyncTask( getCurrentFocus(), DatabaseFetchAsyncTask.FETCH_LOG_LEVEL, LOG_LEVEL_ERROR, null );
+                break;
+
+        }
+
         fetchAsyncTask.execute();
+
         List<AppEmbeddedLogEntry> remainingLogEntries = new ArrayList<>();
         try {
             Log.i(TAG, "_clearUnsavedLogEntries: Fetching remaining log entries");
