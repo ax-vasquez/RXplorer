@@ -1,5 +1,6 @@
 package com.scriptient.rxplorer;
 
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,7 +58,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
      * @param position              The position of the holder within the Adapter
      */
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         AppEmbeddedLogEntry entry = currentLogData.get( position );
 
@@ -92,19 +93,19 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
 
         switch ( entry.getLogLevel() ) {
 
-            case MainActivity.LOG_LEVEL_INFO:
+            case LoggerViewFragment.LOG_LEVEL_INFO:
                 int infoTextColorId = holder.itemView.getResources().getColor( R.color.infoLogText );
                 // Set Item Text Colors
                 holder.mLogLevelTextView.setTextColor( infoTextColorId );
                 holder.mParentMethodTextView.setTextColor( infoTextColorId );
                 break;
-            case MainActivity.LOG_LEVEL_WARN:
+            case LoggerViewFragment.LOG_LEVEL_WARN:
                 int warnTextColorId = holder.itemView.getResources().getColor( R.color.warnLogText );
                 // Set Item Text Colors
                 holder.mLogLevelTextView.setTextColor(warnTextColorId);
                 holder.mParentMethodTextView.setTextColor(warnTextColorId);
                 break;
-            case MainActivity.LOG_LEVEL_ERROR:
+            case LoggerViewFragment.LOG_LEVEL_ERROR:
                 int errorTextColorId = holder.itemView.getResources().getColor( R.color.errorLogText );
                 // Set Item Text Colors
                 holder.mLogLevelTextView.setTextColor( errorTextColorId );
