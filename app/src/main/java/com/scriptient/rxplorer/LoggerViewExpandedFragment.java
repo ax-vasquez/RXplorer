@@ -2,14 +2,15 @@ package com.scriptient.rxplorer;
 
 
 import android.app.AlertDialog;
+import android.app.FragmentTransaction;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -28,9 +29,12 @@ import java.util.Objects;
 import java.util.concurrent.ExecutionException;
 
 
-public class LoggerViewFragment extends RxFragment {
+public class LoggerViewExpandedFragment extends RxFragment {
 
-    private static final String TAG = "LoggerViewFragment";
+    private static final String TAG = "LoggerViewExpanded";
+
+    public static final float X_VERTICAL_SWIPE_TOLERANCE = 30;
+    public static final float Y_VERTICAL_SWIPE_COLLAPSE_REQUIREMENT = 100;
 
     public static final String LOG_LEVEL_VERBOSE = "verbose";
     public static final String LOG_LEVEL_INFO = "info";
@@ -54,6 +58,8 @@ public class LoggerViewFragment extends RxFragment {
     private TextView mErrorTextView;
     private Button mResetButton;
 
+    LoggerViewCollapsedFragment collapsedFragment;
+
     private LoggerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private DatabaseFetchAsyncTask fetchAsyncTask;
@@ -61,7 +67,7 @@ public class LoggerViewFragment extends RxFragment {
     private DatabaseResetAsyncTask databaseResetAsyncTask;
     private RecyclerView.AdapterDataObserver dataObserver;
 
-    public LoggerViewFragment() {
+    public LoggerViewExpandedFragment() {
         // Required empty public constructor
     }
 
@@ -69,7 +75,7 @@ public class LoggerViewFragment extends RxFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_logger_view, container, false);
+        View view = inflater.inflate(R.layout.fragment_logger_view_expanded, container, false);
 
         mRecyclerView = view.findViewById( R.id.logger_view_log_output );
         mVerboseTextView = view.findViewById( R.id.verbose_label );
@@ -99,7 +105,74 @@ public class LoggerViewFragment extends RxFragment {
         mErrorTextView.setOnClickListener( new ErrorLevelClickListener() );
         mResetButton.setOnClickListener( new ResetDataClickListener() );
 
+        view.setOnTouchListener( new View.OnTouchListener() {
+
+            private float startX;
+            private float startY;
+            private float endX;
+            private float endY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch ( event.getAction() ) {
+
+                    case MotionEvent.ACTION_DOWN:
+                        startX = event.getX();
+                        startY = event.getY();
+                    case MotionEvent.ACTION_UP:
+                        endX = event.getX();
+                        endY = event.getY();
+                        if ( _checkSwipeXTolerance( startX, endX ) && _checkSwipeYTolerance( startY, endY ) ) {
+
+                            collapsedFragment = new LoggerViewCollapsedFragment();
+                            FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                            transaction.add( R.id.logger_view_collapsed, collapsedFragment ).commit();
+                            return true;
+                            
+                        }
+
+                }
+
+                return false;
+            }
+
+        });
+
         return view;
+    }
+
+    /**
+     * Helper method to check if the swipe gesture is within the tolerance (too far left or right
+     * of the start X should be ignored)
+     *
+     * @param startX
+     * @param endX
+     * @return
+     */
+    private boolean _checkSwipeXTolerance( float startX, float endX ) {
+
+        float maxToleranceLeft = startX - X_VERTICAL_SWIPE_TOLERANCE;
+        float maxToleranceRight = startX + X_VERTICAL_SWIPE_TOLERANCE;
+
+        return endX >= maxToleranceLeft && endX <= maxToleranceRight;
+
+    }
+
+    /**
+     * Helper method to check if the swipe gesture has moved down far enough to swipe the logger view
+     * down
+     *
+     * @param startY
+     * @param endY
+     * @return
+     */
+    private boolean _checkSwipeYTolerance( float startY, float endY ) {
+
+        float minYValue = startY - Y_VERTICAL_SWIPE_COLLAPSE_REQUIREMENT;
+
+        return endY <= minYValue;
+
     }
 
     /**
@@ -348,6 +421,8 @@ public class LoggerViewFragment extends RxFragment {
         prevLogState = currentLogState;
 
     }
+
+
 
     /**
      * Click Listener for the <q>Verbose</q> log filter text view

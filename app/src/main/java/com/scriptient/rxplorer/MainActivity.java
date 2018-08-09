@@ -19,7 +19,7 @@ public class MainActivity extends RxActivity {
     Button mWarnEventButton;
     Button mErrorEventButton;
 
-    LoggerViewFragment loggerViewFragment;
+    LoggerViewExpandedFragment loggerViewExpandedFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +32,9 @@ public class MainActivity extends RxActivity {
         mWarnEventButton = findViewById( R.id.sim_warn_event_btn );
         mErrorEventButton = findViewById( R.id.sim_error_event_btn );
 
-        loggerViewFragment = new LoggerViewFragment();
+        loggerViewExpandedFragment = new LoggerViewExpandedFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add( R.id.logger_view, loggerViewFragment ).commit();
+        transaction.add( R.id.logger_view, loggerViewExpandedFragment).commit();
 
         _initDummyButtons();
 
@@ -57,11 +57,11 @@ public class MainActivity extends RxActivity {
                 String timestamp = timestampLong.toString();
 
                 logEntry.setTimestamp( timestamp );
-                logEntry.setLogLevel( LoggerViewFragment.LOG_LEVEL_VERBOSE );
+                logEntry.setLogLevel( LoggerViewExpandedFragment.LOG_LEVEL_VERBOSE );
                 logEntry.setParentMethod( TAG );
                 logEntry.setSaved( false );
 
-                loggerViewFragment.addNewLogEntry( v, logEntry );
+                loggerViewExpandedFragment.addNewLogEntry( v, logEntry );
 
             }
         });
@@ -78,11 +78,11 @@ public class MainActivity extends RxActivity {
                 String timestamp = timestampLong.toString();
 
                 logEntry.setTimestamp( timestamp );
-                logEntry.setLogLevel( LoggerViewFragment.LOG_LEVEL_INFO );
+                logEntry.setLogLevel( LoggerViewExpandedFragment.LOG_LEVEL_INFO );
                 logEntry.setParentMethod( TAG );
                 logEntry.setSaved( false );
 
-                loggerViewFragment.addNewLogEntry( v, logEntry );
+                loggerViewExpandedFragment.addNewLogEntry( v, logEntry );
 
             }
         });
@@ -99,11 +99,11 @@ public class MainActivity extends RxActivity {
                 String timestamp = timestampLong.toString();
 
                 logEntry.setTimestamp( timestamp );
-                logEntry.setLogLevel( LoggerViewFragment.LOG_LEVEL_WARN );
+                logEntry.setLogLevel( LoggerViewExpandedFragment.LOG_LEVEL_WARN );
                 logEntry.setParentMethod( TAG );
                 logEntry.setSaved( false );
 
-                loggerViewFragment.addNewLogEntry( v, logEntry );
+                loggerViewExpandedFragment.addNewLogEntry( v, logEntry );
 
             }
         });
@@ -121,11 +121,11 @@ public class MainActivity extends RxActivity {
                 String timestamp = timestampLong.toString();
 
                 logEntry.setTimestamp( timestamp );
-                logEntry.setLogLevel( LoggerViewFragment.LOG_LEVEL_ERROR );
+                logEntry.setLogLevel( LoggerViewExpandedFragment.LOG_LEVEL_ERROR );
                 logEntry.setParentMethod( TAG );
                 logEntry.setSaved( false );
 
-                loggerViewFragment.addNewLogEntry( v, logEntry );
+                loggerViewExpandedFragment.addNewLogEntry( v, logEntry );
 
             }
         });
