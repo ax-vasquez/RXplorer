@@ -10,6 +10,8 @@ import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
+
 /**
  * Data Access Object for app-embedded log entries
  *
@@ -46,6 +48,10 @@ public interface AppEmbeddedLogEntryDao {
      */
     @Query("SELECT * FROM app_embedded_log_entries WHERE log_level IS :logLevel")
     List<AppEmbeddedLogEntry> fetchAllForLogLevel( String logLevel );
+
+
+    @Query("SELECT * FROM app_embedded_log_entries")
+    Flowable<List<AppEmbeddedLogEntry>> fetchAllFlowable();
 
     /**
      * Query to select all entries in the app_embedded_log_entries table

@@ -7,6 +7,7 @@ import com.scriptient.rxplorer.persistence.room.AppDatabase;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
 /**
@@ -46,30 +47,6 @@ public class AppEmbeddedLogEntryRepo {
 
     }
 
-    @SuppressWarnings("unchecked")
-    public static Observable<List<AppEmbeddedLogEntry>> getAllLogEntriesObservable( Context context ) {
-
-        return Observable
-                .fromArray( AppDatabase.getDatabase(context).logEntryDao().fetchAll() );
-
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Observable<List<AppEmbeddedLogEntry>> getAllLogEntriesForLogLevelObservable( Context context, String logLevel ) {
-
-        return Observable
-                .fromArray( AppDatabase.getDatabase(context).logEntryDao().fetchAllForLogLevel( logLevel ) );
-
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Observable<List<AppEmbeddedLogEntry>> getAllLogEntriesForParentMethodObservable ( Context context, String parentMethod ) {
-
-        return Observable
-                .fromArray( AppDatabase.getDatabase(context).logEntryDao().fetchAllForParentMethodName( parentMethod ) );
-
-    }
-
     /**
      * Uses the logEntryDao to fetch all log entries in the app_embedded_log_entries table
      *
@@ -93,6 +70,13 @@ public class AppEmbeddedLogEntryRepo {
     public static List<AppEmbeddedLogEntry> getAllLogEntriesForLogLevel( Context context, String logLevel ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().fetchAllForLogLevel( logLevel );
+
+    }
+
+
+    public static Flowable<List<AppEmbeddedLogEntry>> getAllLogEntriesFlowableForLogLevel( Context context ) {
+
+        return AppDatabase.getDatabase( context ).logEntryDao().fetchAllFlowable();
 
     }
 

@@ -24,6 +24,8 @@ public class DatabaseFetchAsyncTask extends AsyncTask<Void, Void, List<AppEmbedd
 
     public static final String FETCH_LOG_LEVEL = "log_level";
 
+    public static final String FETCH_LOG_LEVEL_FLOWABLE = "log_level_flowable";
+
     public static final String FETCH_PARENT_METHOD = "parent_method";
 
     private WeakReference<View> viewWeakReference;

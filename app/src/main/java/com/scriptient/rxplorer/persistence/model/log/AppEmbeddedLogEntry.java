@@ -53,6 +53,12 @@ public class AppEmbeddedLogEntry {
     @ColumnInfo(name = "saved")
     private Boolean saved;
 
+    /**
+     * The content of this log message (e.g. the <q>main part</q>)
+     */
+    @ColumnInfo(name = "log_content")
+    private String content;
+
     public int getLogId() {
         return logId;
     }
@@ -77,6 +83,10 @@ public class AppEmbeddedLogEntry {
         return saved;
     }
 
+    public String getContent() {
+        return content;
+    }
+
     public void setLogId(int logId) {
         this.logId = logId;
     }
@@ -99,5 +109,9 @@ public class AppEmbeddedLogEntry {
 
     public void setSaved(Boolean saved) {
         this.saved = saved;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

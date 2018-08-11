@@ -93,19 +93,19 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
 
         switch ( entry.getLogLevel() ) {
 
-            case LoggerViewExpandedFragment.LOG_LEVEL_INFO:
+            case LoggerBot.LOG_LEVEL_INFO:
                 int infoTextColorId = holder.itemView.getResources().getColor( R.color.infoLogText );
                 // Set Item Text Colors
                 holder.mLogLevelTextView.setTextColor( infoTextColorId );
                 holder.mParentMethodTextView.setTextColor( infoTextColorId );
                 break;
-            case LoggerViewExpandedFragment.LOG_LEVEL_WARN:
+            case LoggerBot.LOG_LEVEL_WARN:
                 int warnTextColorId = holder.itemView.getResources().getColor( R.color.warnLogText );
                 // Set Item Text Colors
                 holder.mLogLevelTextView.setTextColor(warnTextColorId);
                 holder.mParentMethodTextView.setTextColor(warnTextColorId);
                 break;
-            case LoggerViewExpandedFragment.LOG_LEVEL_ERROR:
+            case LoggerBot.LOG_LEVEL_ERROR:
                 int errorTextColorId = holder.itemView.getResources().getColor( R.color.errorLogText );
                 // Set Item Text Colors
                 holder.mLogLevelTextView.setTextColor( errorTextColorId );
