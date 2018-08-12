@@ -12,12 +12,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class LoggerViewViewModelFactory implements ViewModelProvider.Factory {
+public class ViewModelFactory implements ViewModelProvider.Factory {
 
     private LoggerBot loggerBot;
     private WeakReference<View> viewWeakReference;
 
-    public LoggerViewViewModelFactory( View view ) {
+    public ViewModelFactory(View view ) {
 
         viewWeakReference = new WeakReference<>( view );
         loggerBot = LoggerBot.getInstance();

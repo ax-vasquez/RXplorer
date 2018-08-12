@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,7 +49,7 @@ public class LoggerViewFragment extends RxFragment {
     private CompositeDisposable disposable;
 
     private LoggerViewViewModel viewModel;
-    private LoggerViewViewModelFactory viewModelFactory;
+    private ViewModelFactory viewModelFactory;
 
     private RecyclerView mRecyclerView;
     private TextView mVerboseTextView;
@@ -55,6 +57,8 @@ public class LoggerViewFragment extends RxFragment {
     private TextView mWarnTextView;
     private TextView mErrorTextView;
     private Button mResetButton;
+    private Switch mCollapseSwitch;
+    private RelativeLayout mLoggerToolbar;
 
     private LoggerViewAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
@@ -81,12 +85,30 @@ public class LoggerViewFragment extends RxFragment {
 
         loggerBot = LoggerBot.getInstance();
 
+        mLoggerToolbar = view.findViewById( R.id.logger_view_toolbar );
         mRecyclerView = view.findViewById( R.id.logger_view_log_output );
         mVerboseTextView = view.findViewById( R.id.verbose_label );
         mInfoTextView = view.findViewById( R.id.info_label );
         mWarnTextView = view.findViewById( R.id.warn_label );
         mErrorTextView = view.findViewById( R.id.error_label );
-        mResetButton = view.findViewById( R.id.collapse_button );
+        mResetButton = view.findViewById( R.id.reset_button );
+        mCollapseSwitch = view.findViewById( R.id.collapse_toggle );
+
+        mCollapseSwitch.setOnClickListener( v -> {
+
+            if ( !mCollapseSwitch.isChecked() ) {
+
+                Log.i(TAG, "onClick: unchecked");
+                mRecyclerView.setVisibility( View.GONE );
+
+            } else {
+
+                Log.i(TAG, "onClick: checked");
+                mRecyclerView.setVisibility( View.VISIBLE );
+
+            }
+
+        });
 
         dataObserver = new RecyclerView.AdapterDataObserver() {};
 
@@ -116,20 +138,21 @@ public class LoggerViewFragment extends RxFragment {
         return view;
     }
 
-    @SuppressWarnings("unchecked")
+    /**
+     * Subscribe in onResume to ensure subscription state isn't invalidated after device orientation
+     * changes
+     */
     @Override
-    public void onStart() {
-        super.onStart();
-
-        Log.i(TAG, "onStart: Subscribing to ");
+    public void onResume() {
+        super.onResume();
 
         // Subscribe to observables here
         disposable.add(
                 viewModel
-                .getAllLogEntries()
-                .subscribeOn( Schedulers.io() )
-                .observeOn( AndroidSchedulers.mainThread() )
-                .subscribe( new ListConsumer() )
+                        .getAllLogEntries()
+                        .subscribeOn( Schedulers.io() )
+                        .observeOn( AndroidSchedulers.mainThread() )
+                        .subscribe( new ListConsumer() )
         );
 
     }
@@ -234,7 +257,6 @@ public class LoggerViewFragment extends RxFragment {
      */
     private void _toggleLogLevelSelectedState() {
 
-        // Configure the Fetch Async Task, depending on the selected log filter
         switch ( currentLogState ) {
 
             case LoggerBot.LOG_LEVEL_VERBOSE:
@@ -264,7 +286,6 @@ public class LoggerViewFragment extends RxFragment {
      */
     private void _deselectPreviousLogState() {
 
-        // Configure the Fetch Async Task, depending on the selected log filter
         switch ( prevLogState ) {
 
             case LoggerBot.LOG_LEVEL_VERBOSE:

@@ -42,6 +42,10 @@
         android:layout_alignTop="@+id/sim_warn_event_btn"
         android:text="Error Event" />
 
-    <include layout="@layout/fragment_logger_view"/>
+    <RelativeLayout
+        android:id="@+id/logger_view_placeholder"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
 </RelativeLayout>

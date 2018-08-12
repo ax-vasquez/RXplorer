@@ -2,6 +2,8 @@ package com.scriptient.rxplorer;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.Button;
 
 import com.trello.rxlifecycle2.components.RxActivity;
@@ -16,8 +18,6 @@ public class MainActivity extends RxActivity {
     Button mWarnEventButton;
     Button mErrorEventButton;
 
-    LoggerViewFragment loggerViewFragment;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -31,9 +31,9 @@ public class MainActivity extends RxActivity {
 
         _initDummyButtons();
 
-        loggerViewFragment = new LoggerViewFragment();
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.add( R.id.logger_view, loggerViewFragment).commit();
+        transaction.replace( R.id.logger_view_placeholder, new LoggerViewFragment() );
+        transaction.commit();
 
     }
 
