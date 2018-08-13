@@ -1,6 +1,7 @@
 package com.scriptient.rxplorer;
 
 
+import android.animation.Animator;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -96,15 +98,26 @@ public class LoggerViewFragment extends RxFragment {
 
         mCollapseSwitch.setOnClickListener( v -> {
 
+            long slideDuration = 800;
+
             if ( !mCollapseSwitch.isChecked() ) {
 
                 Log.i(TAG, "onClick: unchecked");
-                mRecyclerView.setVisibility( View.GONE );
+
+                view.animate()
+                        .setDuration( slideDuration )
+                        .translationYBy( mRecyclerView.getHeight() );
+
 
             } else {
 
                 Log.i(TAG, "onClick: checked");
+
                 mRecyclerView.setVisibility( View.VISIBLE );
+
+                view.animate()
+                        .setDuration( slideDuration )
+                        .translationYBy( -1 * ( mRecyclerView.getHeight() ) );
 
             }
 
