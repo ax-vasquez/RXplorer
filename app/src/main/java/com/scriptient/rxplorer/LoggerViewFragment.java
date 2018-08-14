@@ -11,7 +11,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
@@ -98,7 +101,7 @@ public class LoggerViewFragment extends RxFragment {
 
         mCollapseSwitch.setOnClickListener( v -> {
 
-            long slideDuration = 800;
+            long slideDuration = 500;
 
             if ( !mCollapseSwitch.isChecked() ) {
 
@@ -106,6 +109,7 @@ public class LoggerViewFragment extends RxFragment {
 
                 view.animate()
                         .setDuration( slideDuration )
+                        .setInterpolator( new AccelerateInterpolator() )
                         .translationYBy( mRecyclerView.getHeight() );
 
 
@@ -117,6 +121,7 @@ public class LoggerViewFragment extends RxFragment {
 
                 view.animate()
                         .setDuration( slideDuration )
+                        .setInterpolator( new DecelerateInterpolator() )
                         .translationYBy( -1 * ( mRecyclerView.getHeight() ) );
 
             }
@@ -159,7 +164,7 @@ public class LoggerViewFragment extends RxFragment {
     public void onResume() {
         super.onResume();
 
-        // Subscribe to observables here
+        // Add Disposable to CompositeDisposable
         disposable.add(
                 viewModel
                         .getAllLogEntries()
@@ -370,6 +375,16 @@ public class LoggerViewFragment extends RxFragment {
 
     }
 
+    /**
+     * This is part of what makes the LoggerView reactive - This consumer is registered to a Flowable, which
+     * emits a List of all AppEmbeddedLogEntry objects each time there is a <b>change of any kind</b>
+     * to the data. Each time the data in the Flowable is modified, the entire list is emitted. From
+     * there, this consumer reads the list of AppEmbeddedLogEntry objects and updates the view according
+     * to the changes in the data.
+     * <p>
+     *     Additionally, this consumer contains the logic responsible for deciding which items to display
+     *     based on the parent Fragment's currentLogState
+     */
     public class ListConsumer implements Consumer<List<AppEmbeddedLogEntry>> {
 
         @Override
@@ -384,6 +399,7 @@ public class LoggerViewFragment extends RxFragment {
                 if ( currentLogState.equals( LoggerBot.LOG_LEVEL_VERBOSE ) ) {
 
                     currentList = logEntries;
+                    break;
 
                 } else {
 

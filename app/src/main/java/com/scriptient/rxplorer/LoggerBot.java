@@ -10,7 +10,12 @@ import com.scriptient.rxplorer.async.ModifyDatabaseAsyncTask;
 import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
 import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Flowable;
@@ -47,8 +52,10 @@ public class LoggerBot {
 
         AppEmbeddedLogEntry logEntry = new AppEmbeddedLogEntry();
 
-        Long timestampLong = System.currentTimeMillis();
-        String timestamp = timestampLong.toString();
+        TimeZone timeZone = TimeZone.getTimeZone( "UTC" );
+        DateFormat format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US ); // "Z" to indicate UTC timezone
+        format.setTimeZone( timeZone );
+        String timestamp = format.format( new Date() ); // Implicitly uses current time
 
         logEntry.setTimestamp( timestamp );
         logEntry.setLogLevel( logLevel );
