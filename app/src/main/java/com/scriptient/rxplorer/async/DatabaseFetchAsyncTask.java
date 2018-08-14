@@ -4,7 +4,7 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
 
 import java.lang.ref.WeakReference;

@@ -3,7 +3,7 @@ package com.scriptient.rxplorer.async;
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
 
 import java.lang.ref.WeakReference;

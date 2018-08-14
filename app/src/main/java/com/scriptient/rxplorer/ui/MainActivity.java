@@ -1,11 +1,12 @@
-package com.scriptient.rxplorer;
+package com.scriptient.rxplorer.ui;
 
 import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.widget.Button;
 
+import com.scriptient.rxplorer.LoggerBot;
+import com.scriptient.rxplorer.R;
+import com.scriptient.rxplorer.ui.LoggerViewFragment;
 import com.trello.rxlifecycle2.components.RxActivity;
 
 public class MainActivity extends RxActivity {

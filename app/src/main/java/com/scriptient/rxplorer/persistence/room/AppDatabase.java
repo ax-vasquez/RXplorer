@@ -5,7 +5,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.scriptient.rxplorer.persistence.room.dao.AppEmbeddedLogEntryDao;
 
 @Database( entities = {

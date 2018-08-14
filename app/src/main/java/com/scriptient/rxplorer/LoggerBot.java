@@ -7,7 +7,7 @@ import android.view.View;
 import com.scriptient.rxplorer.async.DatabaseFetchAsyncTask;
 import com.scriptient.rxplorer.async.DatabaseResetAsyncTask;
 import com.scriptient.rxplorer.async.ModifyDatabaseAsyncTask;
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
 
 import java.text.DateFormat;
@@ -19,6 +19,7 @@ import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 public class LoggerBot {
 
@@ -71,6 +72,12 @@ public class LoggerBot {
     public Flowable<List<AppEmbeddedLogEntry>> getLogEntryFlowable(Context context) {
 
         return AppEmbeddedLogEntryRepo.getAllLogEntriesFlowableForLogLevel( context );
+
+    }
+
+    public Single<AppEmbeddedLogEntry> getLogEntryById( Context context, int logId ) {
+
+        return AppEmbeddedLogEntryRepo.getLogEntry( context, logId );
 
     }
 

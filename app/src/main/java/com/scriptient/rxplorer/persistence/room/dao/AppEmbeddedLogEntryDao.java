@@ -6,11 +6,12 @@ import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 /**
  * Data Access Object for app-embedded log entries
@@ -52,6 +53,9 @@ public interface AppEmbeddedLogEntryDao {
 
     @Query("SELECT * FROM app_embedded_log_entries")
     Flowable<List<AppEmbeddedLogEntry>> fetchAllFlowable();
+
+    @Query( "SELECT * FROM app_embedded_log_entries WHERE log_id IS :logId" )
+    Single<AppEmbeddedLogEntry> getLogEntrySingle(int logId );
 
     /**
      * Query to select all entries in the app_embedded_log_entries table

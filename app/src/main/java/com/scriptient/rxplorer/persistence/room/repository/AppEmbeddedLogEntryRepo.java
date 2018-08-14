@@ -2,13 +2,13 @@ package com.scriptient.rxplorer.persistence.room.repository;
 
 import android.content.Context;
 
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.scriptient.rxplorer.persistence.room.AppDatabase;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Observable;
+import io.reactivex.Single;
 
 /**
  * Repository Class for the app_embedded_log_entries table
@@ -77,6 +77,12 @@ public class AppEmbeddedLogEntryRepo {
     public static Flowable<List<AppEmbeddedLogEntry>> getAllLogEntriesFlowableForLogLevel( Context context ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().fetchAllFlowable();
+
+    }
+
+    public static Single<AppEmbeddedLogEntry> getLogEntry(Context context, int logId ) {
+
+        return AppDatabase.getDatabase( context ).logEntryDao().getLogEntrySingle( logId );
 
     }
 

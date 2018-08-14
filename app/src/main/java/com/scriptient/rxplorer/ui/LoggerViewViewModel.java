@@ -1,10 +1,11 @@
-package com.scriptient.rxplorer;
+package com.scriptient.rxplorer.ui;
 
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
 import android.view.View;
 
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.LoggerBot;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -21,6 +22,7 @@ public class LoggerViewViewModel extends ViewModel {
     public LoggerViewViewModel( View view ) {
 
         viewWeakReference = new WeakReference<>( view );
+        Log.i(TAG, "LoggerViewViewModel: Initializing LoggerViewViewModel");
         loggerBot = LoggerBot.getInstance();
 
     }

@@ -1,4 +1,4 @@
-package com.scriptient.rxplorer.persistence.model.log;
+package com.scriptient.rxplorer.persistence.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;

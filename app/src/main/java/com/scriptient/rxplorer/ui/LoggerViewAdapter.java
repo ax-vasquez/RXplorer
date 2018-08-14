@@ -1,19 +1,26 @@
-package com.scriptient.rxplorer;
+package com.scriptient.rxplorer.ui;
 
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.TextView;
 
+import com.scriptient.rxplorer.LoggerBot;
+import com.scriptient.rxplorer.R;
 import com.scriptient.rxplorer.async.ModifyDatabaseAsyncTask;
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 
 import java.util.List;
 
 public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.ViewHolder> {
+
+    private static final String TAG = "LoggerViewAdapter";
 
     public static final int DATA_SET_START = 0;
 
@@ -46,7 +53,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
         View v = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.log_list_item_standard, parent, false);
+                .inflate(R.layout.log_list_item, parent, false);
 
         return new ViewHolder(v);
     }
@@ -90,6 +97,21 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
         holder.mTimestampTextView.setText( entry.getTimestamp() );
         holder.mLogLevelTextView.setText( entry.getLogLevel() );
         holder.mParentMethodTextView.setText( entry.getParentMethod() );
+
+        Log.i(TAG, "onBindViewHolder: Setting parent method click listener");
+        holder.mParentMethodTextView.setOnClickListener( v -> {
+
+            Log.i(TAG, "onBindViewHolder: Creating Bundle");
+            Bundle logEntryFragmentParameters = new Bundle();
+            logEntryFragmentParameters.putInt( LoggerViewFragment.ENTRY_ID_KEY, entry.getLogId() );
+
+            Log.i(TAG, "onBindViewHolder: Obtaining local reference to Activity");
+
+            Intent intent = new Intent( v.getContext(), LogEntryActivity.class );
+            intent.putExtra( LoggerViewFragment.ENTRY_ID_KEY, entry.getLogId() );
+            v.getContext().startActivity( intent );
+
+        });
 
         switch ( entry.getLogLevel() ) {
 
@@ -169,4 +191,5 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
         }
 
     }
+
 }

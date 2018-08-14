@@ -1,9 +1,6 @@
-package com.scriptient.rxplorer;
+package com.scriptient.rxplorer.ui;
 
-
-import android.animation.Animator;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,17 +8,17 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.scriptient.rxplorer.persistence.model.log.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.Injection;
+import com.scriptient.rxplorer.LoggerBot;
+import com.scriptient.rxplorer.R;
+import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.trello.rxlifecycle2.components.RxFragment;
 
 import java.util.ArrayList;
@@ -36,6 +33,8 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class LoggerViewFragment extends RxFragment {
+
+    public static final String ENTRY_ID_KEY = "log_id";
 
     private static final String TAG = "LoggerViewExpanded";
 
@@ -101,7 +100,7 @@ public class LoggerViewFragment extends RxFragment {
 
         mCollapseSwitch.setOnClickListener( v -> {
 
-            long slideDuration = 500;
+            long slideDuration = 400;
 
             if ( !mCollapseSwitch.isChecked() ) {
 
@@ -121,7 +120,7 @@ public class LoggerViewFragment extends RxFragment {
 
                 view.animate()
                         .setDuration( slideDuration )
-                        .setInterpolator( new DecelerateInterpolator() )
+                        .setInterpolator( new AccelerateInterpolator() )
                         .translationYBy( -1 * ( mRecyclerView.getHeight() ) );
 
             }
@@ -362,12 +361,9 @@ public class LoggerViewFragment extends RxFragment {
             new AlertDialog.Builder( v.getContext() )
                     .setTitle( "Clear Unsaved Log Entries" )
                     .setMessage( "Do you want to clear all unsaved log entries from the app database?" )
-                    .setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            _clearUnsavedLogEntries();
-                            Toast.makeText( Objects.requireNonNull(getView()).getContext(), "Cleared Unsaved Log Entries", Toast.LENGTH_SHORT ).show();
-                        }
+                    .setPositiveButton("YES", (dialog, which) -> {
+                        _clearUnsavedLogEntries();
+                        Toast.makeText( Objects.requireNonNull(getView()).getContext(), "Cleared Unsaved Log Entries", Toast.LENGTH_SHORT ).show();
                     })
                     .setNegativeButton("NO", null).show();
 
@@ -377,7 +373,7 @@ public class LoggerViewFragment extends RxFragment {
 
     /**
      * This is part of what makes the LoggerView reactive - This consumer is registered to a Flowable, which
-     * emits a List of all AppEmbeddedLogEntry objects each time there is a <b>change of any kind</b>
+     * emits the List of all AppEmbeddedLogEntry objects each time there is a <b>change of any kind</b>
      * to the data. Each time the data in the Flowable is modified, the entire list is emitted. From
      * there, this consumer reads the list of AppEmbeddedLogEntry objects and updates the view according
      * to the changes in the data.
