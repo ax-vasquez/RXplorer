@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModel;
 import android.view.View;
 
 import com.scriptient.rxplorer.LoggerBot;
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
 
 import java.lang.ref.WeakReference;
 
@@ -22,7 +22,7 @@ public class LogEntryDetailViewModel extends ViewModel {
 
     }
 
-    public Single<AppEmbeddedLogEntry> getLogEntryById( int logId ) {
+    public Single<LoggerBotEntry> getLogEntryById(int logId ) {
 
         return loggerBot.getLogEntryById( viewWeakReference.get().getContext(), logId );
 

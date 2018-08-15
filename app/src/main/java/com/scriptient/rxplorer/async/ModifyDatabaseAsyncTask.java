@@ -3,8 +3,8 @@ package com.scriptient.rxplorer.async;
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
-import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryRepo;
 
 import java.lang.ref.WeakReference;
 
@@ -21,13 +21,13 @@ public class ModifyDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private WeakReference<View> viewWeakReference;
     private String modifyOperation;
-    private AppEmbeddedLogEntry appEmbeddedLogEntry;
+    private LoggerBotEntry loggerBotEntry;
 
-    public ModifyDatabaseAsyncTask( View view, String modifyOperation, AppEmbeddedLogEntry appEmbeddedLogEntry ) {
+    public ModifyDatabaseAsyncTask( View view, String modifyOperation, LoggerBotEntry loggerBotEntry) {
 
         viewWeakReference = new WeakReference<>( view );
         this.modifyOperation = modifyOperation;
-        this.appEmbeddedLogEntry = appEmbeddedLogEntry;
+        this.loggerBotEntry = loggerBotEntry;
 
     }
 
@@ -37,13 +37,13 @@ public class ModifyDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
         switch ( modifyOperation ) {
 
             case MODIFY_INSERT:
-                AppEmbeddedLogEntryRepo.insertLogEntry( viewWeakReference.get().getContext(), appEmbeddedLogEntry );
+                LoggerBotEntryRepo.insertLogEntry( viewWeakReference.get().getContext(), loggerBotEntry);
                 break;
             case MODIFY_UPDATE:
-                AppEmbeddedLogEntryRepo.updateLogEntry(  viewWeakReference.get().getContext(), appEmbeddedLogEntry );
+                LoggerBotEntryRepo.updateLogEntry(  viewWeakReference.get().getContext(), loggerBotEntry);
                 break;
             case MODIFY_DELETE:
-                AppEmbeddedLogEntryRepo.deleteLogEntry( viewWeakReference.get().getContext(), appEmbeddedLogEntry );
+                LoggerBotEntryRepo.deleteLogEntry( viewWeakReference.get().getContext(), loggerBotEntry);
                 break;
 
         }

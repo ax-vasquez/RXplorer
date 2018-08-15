@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
 import com.scriptient.rxplorer.async.ModifyDatabaseAsyncTask;
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
 
 import java.util.List;
 
@@ -26,7 +26,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
 
     private ModifyDatabaseAsyncTask modifyAsyncTask;
 
-    private List<AppEmbeddedLogEntry> currentLogData;
+    private List<LoggerBotEntry> currentLogData;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView mTimestampTextView;
@@ -43,7 +43,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
         }
     }
 
-    public LoggerViewAdapter( List<AppEmbeddedLogEntry> entriesToDisplay ) {
+    public LoggerViewAdapter( List<LoggerBotEntry> entriesToDisplay ) {
 
         currentLogData = entriesToDisplay;
 
@@ -67,7 +67,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        AppEmbeddedLogEntry entry = currentLogData.get( position );
+        LoggerBotEntry entry = currentLogData.get( position );
 
         // If the entry is saved
         if ( entry.getSaved() ) {
@@ -152,19 +152,19 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
         return currentLogData.size();
     }
 
-    public List<AppEmbeddedLogEntry> getCurrentLogData() {
+    public List<LoggerBotEntry> getCurrentLogData() {
         return currentLogData;
     }
 
-    public void setCurrentLogData(List<AppEmbeddedLogEntry> currentLogData) {
+    public void setCurrentLogData(List<LoggerBotEntry> currentLogData) {
         this.currentLogData = currentLogData;
     }
 
     public class CheckboxClickListener implements View.OnClickListener {
 
-        AppEmbeddedLogEntry embeddedLogEntry;
+        LoggerBotEntry embeddedLogEntry;
 
-        public CheckboxClickListener( AppEmbeddedLogEntry entry ) {
+        public CheckboxClickListener( LoggerBotEntry entry ) {
 
             this.embeddedLogEntry = entry;
 

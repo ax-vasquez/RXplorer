@@ -3,8 +3,8 @@ package com.scriptient.rxplorer.async;
 import android.os.AsyncTask;
 import android.view.View;
 
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
-import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryRepo;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
@@ -22,14 +22,14 @@ public class DatabaseResetAsyncTask extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... voids) {
 
-        List<AppEmbeddedLogEntry> allEntries =
-                AppEmbeddedLogEntryRepo.getAllLogEntries( viewWeakReference.get().getContext() );
+        List<LoggerBotEntry> allEntries =
+                LoggerBotEntryRepo.getAllLogEntries( viewWeakReference.get().getContext() );
 
-        for ( AppEmbeddedLogEntry entry : allEntries ) {
+        for ( LoggerBotEntry entry : allEntries ) {
 
             if ( !entry.getSaved() ) {
 
-                AppEmbeddedLogEntryRepo.deleteLogEntry( viewWeakReference.get().getContext(), entry );
+                LoggerBotEntryRepo.deleteLogEntry( viewWeakReference.get().getContext(), entry );
 
             }
 

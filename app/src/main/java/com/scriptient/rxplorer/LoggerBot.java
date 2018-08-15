@@ -6,8 +6,8 @@ import android.view.View;
 import com.scriptient.rxplorer.async.DatabaseFetchAsyncTask;
 import com.scriptient.rxplorer.async.DatabaseResetAsyncTask;
 import com.scriptient.rxplorer.async.ModifyDatabaseAsyncTask;
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
-import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryRepo;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +21,8 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class LoggerBot {
+
+    public static final String NO_DATA = "No Data";
 
     private static final String TAG = "LoggerBot";
 
@@ -50,7 +52,7 @@ public class LoggerBot {
      */
     public void createNewLogEntry(View view, String parentMethod, String logLevel, String logContent ) {
 
-        AppEmbeddedLogEntry logEntry = new AppEmbeddedLogEntry();
+        LoggerBotEntry logEntry = new LoggerBotEntry();
 
         TimeZone timeZone = TimeZone.getTimeZone( "UTC" );
         DateFormat format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US ); // "Z" to indicate UTC timezone
@@ -62,21 +64,22 @@ public class LoggerBot {
         logEntry.setParentMethod( parentMethod );
         logEntry.setContent( logContent );
         logEntry.setSaved( false );
+        logEntry.setEvent( NO_DATA );
 
         modifyAsyncTask = new ModifyDatabaseAsyncTask( view, ModifyDatabaseAsyncTask.MODIFY_INSERT, logEntry );
         modifyAsyncTask.execute();
 
     }
 
-    public Flowable<List<AppEmbeddedLogEntry>> getLogEntryFlowable(Context context) {
+    public Flowable<List<LoggerBotEntry>> getLogEntryFlowable(Context context) {
 
-        return AppEmbeddedLogEntryRepo.getAllLogEntriesFlowableForLogLevel( context );
+        return LoggerBotEntryRepo.getAllLogEntriesFlowableForLogLevel( context );
 
     }
 
-    public Single<AppEmbeddedLogEntry> getLogEntryById( Context context, int logId ) {
+    public Single<LoggerBotEntry> getLogEntryById(Context context, int logId ) {
 
-        return AppEmbeddedLogEntryRepo.getLogEntry( context, logId );
+        return LoggerBotEntryRepo.getLogEntry( context, logId );
 
     }
 
@@ -87,7 +90,7 @@ public class LoggerBot {
      * @param logLevel              The log level of the entries to get
      * @return                      List of all log entries for the specified log level
      */
-    public List<AppEmbeddedLogEntry> getAllLogEntriesByLogLevel( View view, String logLevel ) throws ExecutionException, InterruptedException {
+    public List<LoggerBotEntry> getAllLogEntriesByLogLevel(View view, String logLevel ) throws ExecutionException, InterruptedException {
 
         switch ( logLevel ) {
 
@@ -118,7 +121,7 @@ public class LoggerBot {
      * @param parentMethod          The parent method of the log entries to get
      * @return                      All log entries with the matching parent method
      */
-    public List<AppEmbeddedLogEntry> getAllLogEntriesByParentMethod( View view, String parentMethod ) throws ExecutionException, InterruptedException {
+    public List<LoggerBotEntry> getAllLogEntriesByParentMethod(View view, String parentMethod ) throws ExecutionException, InterruptedException {
 
         fetchAsyncTask = new DatabaseFetchAsyncTask( view, DatabaseFetchAsyncTask.FETCH_PARENT_METHOD, null, parentMethod );
         fetchAsyncTask.execute();

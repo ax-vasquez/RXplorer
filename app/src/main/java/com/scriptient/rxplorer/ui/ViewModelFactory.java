@@ -7,12 +7,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.scriptient.rxplorer.LoggerBot;
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 
 import java.lang.ref.WeakReference;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ExecutionException;
 
 public class ViewModelFactory implements ViewModelProvider.Factory {
     

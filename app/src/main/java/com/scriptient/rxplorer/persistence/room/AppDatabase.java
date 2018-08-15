@@ -5,17 +5,22 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
-import com.scriptient.rxplorer.persistence.room.dao.AppEmbeddedLogEntryDao;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntryParameter;
+import com.scriptient.rxplorer.persistence.room.dao.LoggerBotEntryDao;
+import com.scriptient.rxplorer.persistence.room.dao.LoggerBotEntryParameterDao;
 
 @Database( entities = {
-        AppEmbeddedLogEntry.class
+        LoggerBotEntry.class,
+        LoggerBotEntryParameter.class
 }, version = 1, exportSchema = false)
 public abstract class AppDatabase extends RoomDatabase {
 
     private static volatile AppDatabase database;
 
-    public abstract AppEmbeddedLogEntryDao logEntryDao();
+    public abstract LoggerBotEntryDao logEntryDao();
+
+    public abstract LoggerBotEntryParameterDao parameterDao();
 
     /**
      * Thread-safe method to retrieve the app database

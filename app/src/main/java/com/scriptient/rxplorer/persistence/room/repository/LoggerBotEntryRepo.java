@@ -2,7 +2,7 @@ package com.scriptient.rxplorer.persistence.room.repository;
 
 import android.content.Context;
 
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
 import com.scriptient.rxplorer.persistence.room.AppDatabase;
 
 import java.util.List;
@@ -17,33 +17,33 @@ import io.reactivex.Single;
  *
  * @author Armando Vasquez
  */
-public class AppEmbeddedLogEntryRepo {
+public class LoggerBotEntryRepo {
 
-    private static final String TAG = "AppEmbeddedLogEntryRepo";
+    private static final String TAG = "LoggerBotEntryRepo";
 
-    private static AppEmbeddedLogEntryRepo sInstance = null;
+    private static LoggerBotEntryRepo sInstance = null;
 
     private static final Object lockObject = new Object();
 
-    private AppEmbeddedLogEntryRepo(){
+    private LoggerBotEntryRepo(){
 
     }
 
-    public static void insertLogEntry( Context context, AppEmbeddedLogEntry appEmbeddedLogEntry ) {
+    public static void insertLogEntry( Context context, LoggerBotEntry loggerBotEntry) {
 
-        AppDatabase.getDatabase( context ).logEntryDao().insert( appEmbeddedLogEntry );
-
-    }
-
-    public static void updateLogEntry( Context context, AppEmbeddedLogEntry appEmbeddedLogEntry ) {
-
-        AppDatabase.getDatabase( context ).logEntryDao().update( appEmbeddedLogEntry );
+        AppDatabase.getDatabase( context ).logEntryDao().insert(loggerBotEntry);
 
     }
 
-    public static void deleteLogEntry( Context context, AppEmbeddedLogEntry appEmbeddedLogEntry ) {
+    public static void updateLogEntry( Context context, LoggerBotEntry loggerBotEntry) {
 
-        AppDatabase.getDatabase( context ).logEntryDao().delete( appEmbeddedLogEntry );
+        AppDatabase.getDatabase( context ).logEntryDao().update(loggerBotEntry);
+
+    }
+
+    public static void deleteLogEntry( Context context, LoggerBotEntry loggerBotEntry) {
+
+        AppDatabase.getDatabase( context ).logEntryDao().delete(loggerBotEntry);
 
     }
 
@@ -53,7 +53,7 @@ public class AppEmbeddedLogEntryRepo {
      * @param context                   The context to use when getting the app database
      * @return                          All log entries in the app_embedded_log_entries table
      */
-    public static List<AppEmbeddedLogEntry> getAllLogEntries( Context context ) {
+    public static List<LoggerBotEntry> getAllLogEntries(Context context ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().fetchAll();
 
@@ -67,20 +67,20 @@ public class AppEmbeddedLogEntryRepo {
      * @param logLevel                  The log level of the entries to fetch
      * @return                          All log entries in the app_embedded_log_entries table with the specified log level
      */
-    public static List<AppEmbeddedLogEntry> getAllLogEntriesForLogLevel( Context context, String logLevel ) {
+    public static List<LoggerBotEntry> getAllLogEntriesForLogLevel(Context context, String logLevel ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().fetchAllForLogLevel( logLevel );
 
     }
 
 
-    public static Flowable<List<AppEmbeddedLogEntry>> getAllLogEntriesFlowableForLogLevel( Context context ) {
+    public static Flowable<List<LoggerBotEntry>> getAllLogEntriesFlowableForLogLevel(Context context ) {
 
-        return AppDatabase.getDatabase( context ).logEntryDao().fetchAllFlowable();
+        return AppDatabase.getDatabase( context ).logEntryDao().getAllEntriesFlowable();
 
     }
 
-    public static Single<AppEmbeddedLogEntry> getLogEntry(Context context, int logId ) {
+    public static Single<LoggerBotEntry> getLogEntry(Context context, int logId ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().getLogEntrySingle( logId );
 
@@ -94,7 +94,7 @@ public class AppEmbeddedLogEntryRepo {
      * @param parentMethod              The parent method of the entries to fetch
      * @return                          All log entries in the app_embedded_log_entries table with the specified parent method
      */
-    public static List<AppEmbeddedLogEntry> getAllLogEntriesForParentMethod( Context context, String parentMethod ) {
+    public static List<LoggerBotEntry> getAllLogEntriesForParentMethod(Context context, String parentMethod ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().fetchAllForParentMethodName( parentMethod );
 
@@ -103,11 +103,11 @@ public class AppEmbeddedLogEntryRepo {
     /**
      * This method returns a thread-safe reference to this repository singleton
      *
-     * @return          The AppEmbeddedLogEntryRepo singleton
+     * @return          The LoggerBotEntryRepo singleton
      */
-    public static AppEmbeddedLogEntryRepo getInstance() {
+    public static LoggerBotEntryRepo getInstance() {
 
-        AppEmbeddedLogEntryRepo result = sInstance;
+        LoggerBotEntryRepo result = sInstance;
 
         if ( result == null ) {
 
@@ -117,7 +117,7 @@ public class AppEmbeddedLogEntryRepo {
                 result = sInstance;
                 if( result == null ) {
 
-                    sInstance = result = new AppEmbeddedLogEntryRepo();
+                    sInstance = result = new LoggerBotEntryRepo();
 
                 }
 

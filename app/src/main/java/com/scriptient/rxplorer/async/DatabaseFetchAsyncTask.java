@@ -4,8 +4,8 @@ import android.os.AsyncTask;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
-import com.scriptient.rxplorer.persistence.room.repository.AppEmbeddedLogEntryRepo;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryRepo;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.List;
  *
  * @author Armando Vasquez
  */
-public class DatabaseFetchAsyncTask extends AsyncTask<Void, Void, List<AppEmbeddedLogEntry>> {
+public class DatabaseFetchAsyncTask extends AsyncTask<Void, Void, List<LoggerBotEntry>> {
 
     private static final String TAG = "DatabaseFetchAsyncTask";
 
@@ -69,20 +69,20 @@ public class DatabaseFetchAsyncTask extends AsyncTask<Void, Void, List<AppEmbedd
      * @return                          List of results for the query this task was configured to use
      */
     @Override
-    protected List<AppEmbeddedLogEntry> doInBackground(Void... voids) {
+    protected List<LoggerBotEntry> doInBackground(Void... voids) {
 
-        List<AppEmbeddedLogEntry> results = new ArrayList<>();
+        List<LoggerBotEntry> results = new ArrayList<>();
 
         switch ( fetchOperation ) {
 
             case FETCH_ALL:
-                results = AppEmbeddedLogEntryRepo.getAllLogEntries( viewWeakReference.get().getContext() );
+                results = LoggerBotEntryRepo.getAllLogEntries( viewWeakReference.get().getContext() );
                 break;
             case FETCH_LOG_LEVEL:
-                results = AppEmbeddedLogEntryRepo.getAllLogEntriesForLogLevel( viewWeakReference.get().getContext(), logLevel );
+                results = LoggerBotEntryRepo.getAllLogEntriesForLogLevel( viewWeakReference.get().getContext(), logLevel );
                 break;
             case FETCH_PARENT_METHOD:
-                results = AppEmbeddedLogEntryRepo.getAllLogEntriesForParentMethod( viewWeakReference.get().getContext(), parentMethod );
+                results = LoggerBotEntryRepo.getAllLogEntriesForParentMethod( viewWeakReference.get().getContext(), parentMethod );
                 break;
 
         }

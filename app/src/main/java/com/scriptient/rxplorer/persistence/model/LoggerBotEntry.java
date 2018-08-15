@@ -14,8 +14,8 @@ import java.util.Map;
  *
  * @author Armando Vasquez
  */
-@Entity(tableName = "app_embedded_log_entries")
-public class AppEmbeddedLogEntry {
+@Entity(tableName = "logger_bot_entries")
+public class LoggerBotEntry {
 
     /**
      * The ID of this log entry
@@ -64,13 +64,6 @@ public class AppEmbeddedLogEntry {
     private Boolean saved;
 
     /**
-     * Map of parameter names as the key, with a corresponding string value representation of the
-     * parameter's value (e.g. if a parameter is "int 1", the key is "int" and value is "1"
-     */
-    @ColumnInfo(name = "parameter_map")
-    private Map<String, String> parameterMap;
-
-    /**
      * The content of this log message (e.g. the <q>main part</q>)
      */
     @ColumnInfo(name = "log_content")
@@ -86,6 +79,10 @@ public class AppEmbeddedLogEntry {
 
     public String getTimestamp() {
         return timestamp;
+    }
+
+    public String getEvent() {
+        return event;
     }
 
     public String getLogLevel() {
@@ -116,6 +113,10 @@ public class AppEmbeddedLogEntry {
         this.timestamp = timestamp;
     }
 
+    public void setEvent(String event) {
+        this.event = event;
+    }
+
     public void setLogLevel(String logLevel) {
         this.logLevel = logLevel;
     }
@@ -131,4 +132,5 @@ public class AppEmbeddedLogEntry {
     public void setContent(String content) {
         this.content = content;
     }
+
 }

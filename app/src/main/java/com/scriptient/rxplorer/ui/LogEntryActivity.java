@@ -7,13 +7,12 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.scriptient.rxplorer.Injection;
+import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.trello.rxlifecycle2.components.RxActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class LogEntryActivity extends RxActivity {
@@ -42,7 +41,7 @@ public class LogEntryActivity extends RxActivity {
         viewModel = viewModelFactory.create( LogEntryDetailViewModel.class );
 
         mTextViewTimestamp = findViewById( R.id.log_entry_timestamp );
-        mTextViewEvent = findViewById( R.id.event_label );
+        mTextViewEvent = findViewById( R.id.log_entry_event );
         mSwitchSavedEntry = findViewById( R.id.checkbox_log_entry_is_saved );
         mTextViewParentMethod = findViewById( R.id.log_entry_parent_method );
         mTextViewParameters = findViewById( R.id.log_entry_parameters );
@@ -63,6 +62,8 @@ public class LogEntryActivity extends RxActivity {
 
                     mTextViewTimestamp.setText( appEmbeddedLogEntry.getTimestamp() );
                     mTextViewParentMethod.setText( appEmbeddedLogEntry.getParentMethod() );
+                    mTextViewEvent.setText( LoggerBot.NO_DATA );
+                    mTextViewParameters.setText( LoggerBot.NO_DATA );
                     mSwitchSavedEntry.setChecked( appEmbeddedLogEntry.getSaved() );
 
                 })

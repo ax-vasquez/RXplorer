@@ -18,7 +18,7 @@ import android.widget.Toast;
 import com.scriptient.rxplorer.Injection;
 import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
-import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
 import com.trello.rxlifecycle2.components.RxFragment;
 
 import java.util.ArrayList;
@@ -195,7 +195,7 @@ public class LoggerViewFragment extends RxFragment {
     private void _updateRecyclerViewDataSet( String logLevel ) {
 
         // Obtain the data set
-        List<AppEmbeddedLogEntry> newDataSet = null;
+        List<LoggerBotEntry> newDataSet = null;
 
         try {
             newDataSet = loggerBot.getAllLogEntriesByLogLevel( getView(), logLevel );
@@ -235,7 +235,7 @@ public class LoggerViewFragment extends RxFragment {
      *
      * @param newDataSet                The data set to populate the RecyclerView.Adapter with
      */
-    private void _updateRecyclerViewDataSet( List<AppEmbeddedLogEntry> newDataSet ) {
+    private void _updateRecyclerViewDataSet( List<LoggerBotEntry> newDataSet ) {
 
         mAdapter.setCurrentLogData( newDataSet );
         mAdapter.notifyItemRangeInserted( LoggerViewAdapter.DATA_SET_START, newDataSet.size() );
@@ -254,7 +254,7 @@ public class LoggerViewFragment extends RxFragment {
         _clearCachedContentsFromRecyclerView();
         Log.i(TAG, "_clearUnsavedLogEntries: All old items flushed from adapter");
 
-        List<AppEmbeddedLogEntry> remainingLogEntries = null;
+        List<LoggerBotEntry> remainingLogEntries = null;
         try {
             remainingLogEntries = loggerBot.getAllLogEntriesByLogLevel( getView(), currentLogState );
         } catch (ExecutionException e) {
@@ -373,24 +373,24 @@ public class LoggerViewFragment extends RxFragment {
 
     /**
      * This is part of what makes the LoggerView reactive - This consumer is registered to a Flowable, which
-     * emits the List of all AppEmbeddedLogEntry objects each time there is a <b>change of any kind</b>
+     * emits the List of all LoggerBotEntry objects each time there is a <b>change of any kind</b>
      * to the data. Each time the data in the Flowable is modified, the entire list is emitted. From
-     * there, this consumer reads the list of AppEmbeddedLogEntry objects and updates the view according
+     * there, this consumer reads the list of LoggerBotEntry objects and updates the view according
      * to the changes in the data.
      * <p>
      *     Additionally, this consumer contains the logic responsible for deciding which items to display
      *     based on the parent Fragment's currentLogState
      */
-    public class ListConsumer implements Consumer<List<AppEmbeddedLogEntry>> {
+    public class ListConsumer implements Consumer<List<LoggerBotEntry>> {
 
         @Override
-        public void accept(List<AppEmbeddedLogEntry> logEntries) throws Exception {
+        public void accept(List<LoggerBotEntry> logEntries) throws Exception {
 
             Log.i(TAG, "accept: List Updated with size: " + logEntries.size() );
 
-            List<AppEmbeddedLogEntry> currentList = new ArrayList<>();
+            List<LoggerBotEntry> currentList = new ArrayList<>();
 
-            for ( AppEmbeddedLogEntry logEntry : logEntries ) {
+            for ( LoggerBotEntry logEntry : logEntries ) {
 
                 if ( currentLogState.equals( LoggerBot.LOG_LEVEL_VERBOSE ) ) {
 
