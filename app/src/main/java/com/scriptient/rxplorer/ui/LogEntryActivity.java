@@ -12,23 +12,29 @@ import com.scriptient.rxplorer.persistence.model.AppEmbeddedLogEntry;
 import com.trello.rxlifecycle2.components.RxActivity;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class LogEntryActivity extends RxActivity {
 
     private TextView mTextViewTimestamp;
-    private TextView mTextViewParentMethod;
-    private TextView mTextViewContent;
+    private TextView mTextViewEvent;
     private Switch mSwitchSavedEntry;
+    private TextView mTextViewParentMethod;
+    private TextView mTextViewParameters;
 
     private LogEntryDetailViewModel viewModel;
     private ViewModelFactory viewModelFactory;
+
+    private CompositeDisposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_entry);
+
+        disposable = new CompositeDisposable();
 
         View view = new View( this );
 
@@ -36,9 +42,10 @@ public class LogEntryActivity extends RxActivity {
         viewModel = viewModelFactory.create( LogEntryDetailViewModel.class );
 
         mTextViewTimestamp = findViewById( R.id.log_entry_timestamp );
-        mTextViewParentMethod = findViewById( R.id.log_entry_parent_method );
-        mTextViewContent = findViewById( R.id.log_entry_content );
+        mTextViewEvent = findViewById( R.id.event_label );
         mSwitchSavedEntry = findViewById( R.id.checkbox_log_entry_is_saved );
+        mTextViewParentMethod = findViewById( R.id.log_entry_parent_method );
+        mTextViewParameters = findViewById( R.id.log_entry_parameters );
 
     }
 
@@ -47,7 +54,8 @@ public class LogEntryActivity extends RxActivity {
     protected void onResume() {
         super.onResume();
 
-        viewModel
+        disposable.add(
+            viewModel
                 .getLogEntryById( getIntent().getIntExtra( LoggerViewFragment.ENTRY_ID_KEY, 0 ) )
                 .subscribeOn( Schedulers.io() )
                 .observeOn( AndroidSchedulers.mainThread() )
@@ -55,10 +63,17 @@ public class LogEntryActivity extends RxActivity {
 
                     mTextViewTimestamp.setText( appEmbeddedLogEntry.getTimestamp() );
                     mTextViewParentMethod.setText( appEmbeddedLogEntry.getParentMethod() );
-                    mTextViewContent.setText( appEmbeddedLogEntry.getContent() );
                     mSwitchSavedEntry.setChecked( appEmbeddedLogEntry.getSaved() );
 
-                });
+                })
+        );
 
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        disposable.clear();
     }
 }

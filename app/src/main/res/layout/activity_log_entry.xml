@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.LogEntryActivity">
 
+    <Switch
+        android:id="@+id/checkbox_log_entry_is_saved"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="10dp"
+        android:text="Saved" />
+
     <TextView
         android:id="@+id/log_entry_timestamp"
         android:layout_width="wrap_content"
@@ -19,31 +29,69 @@
         android:text="[TIMESTAMP]" />
 
     <TextView
+        android:id="@+id/event_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_below="@id/log_entry_timestamp"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:text="Event:" />
+
+    <TextView
+        android:id="@+id/log_entry_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/event_label"
+        android:layout_marginStart="20dp"
+        android:textSize="25sp"
+        android:text="[EVENT]" />
+
+    <TextView
+        android:id="@+id/content_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/log_entry_event"
+        android:layout_marginTop="50dp"
+        android:textStyle="bold"
+        android:textSize="30sp"
+        android:layout_marginStart="10dp"
+        android:text="Content:" />
+
+    <TextView
+        android:id="@+id/called_in_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/content_label"
+        android:layout_marginStart="20dp"
+        android:textStyle="bold"
+        android:text="Method: " />
+
+    <TextView
+        android:id="@+id/called_with_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/called_in_label"
+        android:layout_marginStart="20dp"
+        android:textStyle="bold"
+        android:text="Parameters: " />
+
+    <TextView
         android:id="@+id/log_entry_parent_method"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="100dp"
-        android:textSize="25sp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/called_in_label"
+        android:layout_marginEnd="20dp"
         android:text="[PARENT METHOD]" />
 
     <TextView
-        android:id="@+id/log_entry_content"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="[CONTENT]" />
-
-    <Switch
-        android:id="@+id/checkbox_log_entry_is_saved"
+        android:id="@+id/log_entry_parameters"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="10dp"
-        android:text="Saved" />
+        android:layout_marginEnd="20dp"
+        android:layout_below="@+id/called_in_label"
+        android:text="[PARAMETERS]" />
 
 </RelativeLayout>

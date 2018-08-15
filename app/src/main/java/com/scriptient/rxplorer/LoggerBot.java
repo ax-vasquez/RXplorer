@@ -1,6 +1,5 @@
 package com.scriptient.rxplorer;
 
-
 import android.content.Context;
 import android.view.View;
 

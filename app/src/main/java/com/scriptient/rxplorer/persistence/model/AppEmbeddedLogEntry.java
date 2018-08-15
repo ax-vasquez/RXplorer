@@ -2,7 +2,11 @@ package com.scriptient.rxplorer.persistence.model;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Model class representing an arbitrary in-app log object, used in the embedded diagnostic
@@ -35,13 +39,19 @@ public class AppEmbeddedLogEntry {
     private String timestamp;
 
     /**
+     * The event this log entry represents
+     */
+    @ColumnInfo(name = "event")
+    private String event;
+
+    /**
      * The log level of this log event
      */
     @ColumnInfo(name = "log_level")
     private String logLevel;
 
     /**
-     * The name of the method this log event was logged from (including the parent class(es))
+     * The name of the method this log event was logged from (including the parent class, ideally, though not required)
      */
     @ColumnInfo(name = "parent_method")
     private String parentMethod;
@@ -52,6 +62,13 @@ public class AppEmbeddedLogEntry {
      */
     @ColumnInfo(name = "saved")
     private Boolean saved;
+
+    /**
+     * Map of parameter names as the key, with a corresponding string value representation of the
+     * parameter's value (e.g. if a parameter is "int 1", the key is "int" and value is "1"
+     */
+    @ColumnInfo(name = "parameter_map")
+    private Map<String, String> parameterMap;
 
     /**
      * The content of this log message (e.g. the <q>main part</q>)
