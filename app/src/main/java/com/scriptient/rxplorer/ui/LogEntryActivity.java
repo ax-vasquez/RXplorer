@@ -21,7 +21,6 @@ public class LogEntryActivity extends RxActivity {
     private TextView mTextViewEvent;
     private Switch mSwitchSavedEntry;
     private TextView mTextViewParentMethod;
-    private TextView mTextViewParameters;
 
     private LogEntryDetailViewModel viewModel;
     private ViewModelFactory viewModelFactory;
@@ -44,7 +43,6 @@ public class LogEntryActivity extends RxActivity {
         mTextViewEvent = findViewById( R.id.log_entry_event );
         mSwitchSavedEntry = findViewById( R.id.checkbox_log_entry_is_saved );
         mTextViewParentMethod = findViewById( R.id.log_entry_parent_method );
-        mTextViewParameters = findViewById( R.id.log_entry_parameters );
 
     }
 
@@ -63,7 +61,6 @@ public class LogEntryActivity extends RxActivity {
                     mTextViewTimestamp.setText( appEmbeddedLogEntry.getTimestamp() );
                     mTextViewParentMethod.setText( appEmbeddedLogEntry.getParentMethod() );
                     mTextViewEvent.setText( LoggerBot.NO_DATA );
-                    mTextViewParameters.setText( LoggerBot.NO_DATA );
                     mSwitchSavedEntry.setChecked( appEmbeddedLogEntry.getSaved() );
 
                 })

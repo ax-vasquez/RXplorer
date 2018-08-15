@@ -68,7 +68,7 @@
         android:text="Method: " />
 
     <TextView
-        android:id="@+id/called_with_label"
+        android:id="@+id/parameters_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/called_in_label"
@@ -85,13 +85,14 @@
         android:layout_marginEnd="20dp"
         android:text="[PARENT METHOD]" />
 
-    <TextView
-        android:id="@+id/log_entry_parameters"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/parameters_label"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_below="@+id/called_in_label"
-        android:text="[PARAMETERS]" />
+        android:layout_centerHorizontal="true"/>
 
 </RelativeLayout>
