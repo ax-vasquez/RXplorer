@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
-import com.scriptient.rxplorer.async.ModifyDatabaseAsyncTask;
+import com.scriptient.rxplorer.async.EntryTableModifyAsyncTask;
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
 
     public static final int DATA_SET_START = 0;
 
-    private ModifyDatabaseAsyncTask modifyAsyncTask;
+    private EntryTableModifyAsyncTask modifyAsyncTask;
 
     private List<LoggerBotEntry> currentLogData;
 
@@ -184,7 +184,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
             }
 
             // Commit changes to the app database
-            modifyAsyncTask = new ModifyDatabaseAsyncTask( view, ModifyDatabaseAsyncTask.MODIFY_UPDATE, embeddedLogEntry );
+            modifyAsyncTask = new EntryTableModifyAsyncTask( view, EntryTableModifyAsyncTask.MODIFY_UPDATE, embeddedLogEntry );
             modifyAsyncTask.execute();
             notifyItemInserted( getItemCount() );
 

@@ -8,9 +8,9 @@ import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryRepo;
 
 import java.lang.ref.WeakReference;
 
-public class ModifyDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
+public class EntryTableModifyAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    private static final String TAG = "ModifyDatabaseAsyncTask";
+    private static final String TAG = "EntryTableModifyAsyncTask";
 
     /**
      * Modify Operations
@@ -23,7 +23,7 @@ public class ModifyDatabaseAsyncTask extends AsyncTask<Void, Void, Void> {
     private String modifyOperation;
     private LoggerBotEntry loggerBotEntry;
 
-    public ModifyDatabaseAsyncTask( View view, String modifyOperation, LoggerBotEntry loggerBotEntry) {
+    public EntryTableModifyAsyncTask(View view, String modifyOperation, LoggerBotEntry loggerBotEntry) {
 
         viewWeakReference = new WeakReference<>( view );
         this.modifyOperation = modifyOperation;

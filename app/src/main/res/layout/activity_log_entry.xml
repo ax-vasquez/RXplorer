@@ -86,8 +86,9 @@
         android:text="[PARENT METHOD]" />
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/parameters_list"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/parameters_label"
         android:layout_alignParentBottom="true"
         android:layout_marginTop="5dp"

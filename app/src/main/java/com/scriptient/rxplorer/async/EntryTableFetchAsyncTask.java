@@ -16,15 +16,13 @@ import java.util.List;
  *
  * @author Armando Vasquez
  */
-public class DatabaseFetchAsyncTask extends AsyncTask<Void, Void, List<LoggerBotEntry>> {
+public class EntryTableFetchAsyncTask extends AsyncTask<Void, Void, List<LoggerBotEntry>> {
 
-    private static final String TAG = "DatabaseFetchAsyncTask";
+    private static final String TAG = "EntryTableFetchAsyncTask";
 
     public static final String FETCH_ALL = "all";
 
     public static final String FETCH_LOG_LEVEL = "log_level";
-
-    public static final String FETCH_LOG_LEVEL_FLOWABLE = "log_level_flowable";
 
     public static final String FETCH_PARENT_METHOD = "parent_method";
 
@@ -42,7 +40,7 @@ public class DatabaseFetchAsyncTask extends AsyncTask<Void, Void, List<LoggerBot
      * @param logLevel                          The log level of the entries to fetch (only used when fetchOperation is FETCH_LOG_LEVEL)
      * @param parentMethod                      The name of the parent method of the entries to fetch (only used when fetchOperation is FETCH_PARENT_METHOD)
      */
-    public DatabaseFetchAsyncTask(View view, String fetchOperation, @Nullable String logLevel, @Nullable String parentMethod ) {
+    public EntryTableFetchAsyncTask(View view, String fetchOperation, @Nullable String logLevel, @Nullable String parentMethod ) {
 
         viewWeakReference = new WeakReference<>( view );
         this.fetchOperation = fetchOperation;

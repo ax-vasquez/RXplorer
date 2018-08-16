@@ -14,16 +14,16 @@ import static android.arch.persistence.room.ForeignKey.CASCADE;
 foreignKeys = @ForeignKey(
         entity = LoggerBotEntry.class,
         parentColumns = "log_id",
-        childColumns = "log_id",
+        childColumns = "parent_log_id",
         onDelete = CASCADE
 ))
 public class LoggerBotEntryParameter {
 
-    @PrimaryKey
-    private int id;
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
 
-    @ColumnInfo(name = "log_id")
-    private int logId;
+    @ColumnInfo(name = "parent_log_id")
+    private Integer parentLogId;
 
     @ColumnInfo(name = "data_type")
     private String parameterDataType;
@@ -34,12 +34,12 @@ public class LoggerBotEntryParameter {
     @ColumnInfo(name = "value")
     private String parameterValue;
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public int getLogId() {
-        return logId;
+    public Integer getParentLogId() {
+        return parentLogId;
     }
 
     public String getParameterDataType() {
@@ -54,12 +54,12 @@ public class LoggerBotEntryParameter {
         return parameterValue;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public void setLogId(int logId) {
-        this.logId = logId;
+    public void setParentLogId(Integer logId) {
+        this.parentLogId = logId;
     }
 
     public void setParameterDataType(String parameterDataType) {

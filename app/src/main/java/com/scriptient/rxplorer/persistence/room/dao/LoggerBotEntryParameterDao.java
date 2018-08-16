@@ -31,7 +31,10 @@ public interface LoggerBotEntryParameterDao {
      * @param logId                     The ID of the log entry whose parameters are observed in the returned Single
      * @return                          A Single that emits the list of parameters associated with the specified log entry
      */
-    @Query( "SELECT * FROM entry_parameters WHERE log_id IS :logId" )
-    Single<List<LoggerBotEntryParameter>> getParametersForLogEntrySingle( int logId );
+    @Query( "SELECT * FROM entry_parameters WHERE parent_log_id IS :logId" )
+    Single<List<LoggerBotEntryParameter>> getParametersForLogEntrySingle( Integer logId );
+
+    @Query( "SELECT * FROM entry_parameters WHERE parent_log_id IS :logId" )
+    List<LoggerBotEntryParameter> getParametersForLogEntry( Integer logId );
 
 }

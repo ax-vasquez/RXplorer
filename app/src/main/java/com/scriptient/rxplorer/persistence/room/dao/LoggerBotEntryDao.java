@@ -79,7 +79,7 @@ public interface LoggerBotEntryDao {
      * @return                          A Single that emits all data for this log entry when its subscribed to
      */
     @Query( "SELECT * FROM logger_bot_entries WHERE log_id IS :logId" )
-    Single<LoggerBotEntry> getLogEntrySingle(int logId );
+    Single<LoggerBotEntry> getLogEntrySingle(Integer logId );
 
     /**
      * Query to select all entries in the app_embedded_log_entries table

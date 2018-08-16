@@ -6,8 +6,12 @@ import android.widget.Button;
 
 import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
+import com.scriptient.rxplorer.persistence.model.LoggerBotEntryParameter;
 import com.scriptient.rxplorer.ui.LoggerViewFragment;
 import com.trello.rxlifecycle2.components.RxActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends RxActivity {
 
@@ -30,12 +34,17 @@ public class MainActivity extends RxActivity {
         mWarnEventButton = findViewById( R.id.sim_warn_event_btn );
         mErrorEventButton = findViewById( R.id.sim_error_event_btn );
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
         _initDummyButtons();
 
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace( R.id.logger_view_placeholder, new LoggerViewFragment() );
         transaction.commit();
-
     }
 
     /**
@@ -43,32 +52,49 @@ public class MainActivity extends RxActivity {
      */
     private void _initDummyButtons() {
 
+        List<LoggerBotEntryParameter> parameters = new ArrayList<>();
+        LoggerBotEntryParameter parameter = new LoggerBotEntryParameter();
+        parameter.setParameterDataType( "String" );
+        parameter.setParameterName( "testName" );
+        parameter.setParameterValue( "Test Value" );
+
+        parameters.add( parameter );
+
         mNormalEventButton.setOnClickListener( v -> LoggerBot.getInstance().createNewLogEntry(
                 v,
-                "mNormalEventButton.onClick()" ,
+                "Button Click",
+                "mNormalEventButton.onClick()",
                 LoggerBot.LOG_LEVEL_VERBOSE,
-                "Normal Event Button Click"
+                "Test Content",
+                parameters
         ));
 
         mInfoEventButton.setOnClickListener(v -> LoggerBot.getInstance().createNewLogEntry(
                 v,
-                "mInfoEventButton.onClick()" ,
+                "Button Click",
+                "mInfoEventButton.onClick()",
                 LoggerBot.LOG_LEVEL_INFO,
-                "Info Event Button Click"
+                "Test Content",
+                parameters
+
         ));
 
         mWarnEventButton.setOnClickListener(v -> LoggerBot.getInstance().createNewLogEntry(
                 v,
-                "mNormalEventButton.onClick()" ,
+                "Button Click",
+                "mWarnEventButton.onClick()",
                 LoggerBot.LOG_LEVEL_WARN,
-                "Warn Event Button Click"
+                "Test Content",
+                parameters
          ));
 
         mErrorEventButton.setOnClickListener(v -> LoggerBot.getInstance().createNewLogEntry(
                 v,
-                "mNormalEventButton.onClick()" ,
+                "Button Click",
+                "mErrorEventButton.onClick()",
                 LoggerBot.LOG_LEVEL_ERROR,
-                "Error Event Button Click"
+                "Test Content",
+                parameters
         ));
 
     }

@@ -1,6 +1,7 @@
 package com.scriptient.rxplorer.persistence.room.repository;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntryParameter;
 import com.scriptient.rxplorer.persistence.room.AppDatabase;
@@ -11,46 +12,36 @@ import io.reactivex.Single;
 
 public class LoggerBotEntryParameterRepo {
 
-    private static LoggerBotEntryParameterRepo sInstance = null;
+    private static final String TAG = "LoggerBotEntryParameter";
 
-    private static final Object lockObject = new Object();
+    public static void insertLogEntryParameter( Context context, LoggerBotEntryParameter parameter ) {
 
-    private LoggerBotEntryParameterRepo() {
+        Log.i(TAG, "insertLogEntryParameter: Inserting Parameter");
+        AppDatabase.getDatabase( context ).parameterDao().insert( parameter );
 
     }
 
-    public static Single<List<LoggerBotEntryParameter>> getParametersForLogEntryId( Context context, int logId ) {
+    public static void updateLogEntryParameter( Context context, LoggerBotEntryParameter parameter ) {
+
+        AppDatabase.getDatabase( context ).parameterDao().update( parameter );
+
+    }
+
+    public static void deleteLogEntryParameter( Context context, LoggerBotEntryParameter parameter ) {
+
+        AppDatabase.getDatabase( context ).parameterDao().delete( parameter );
+
+    }
+
+    public static Single<List<LoggerBotEntryParameter>> getParametersSingleForLogEntryId(Context context, int logId ) {
 
         return AppDatabase.getDatabase( context ).parameterDao().getParametersForLogEntrySingle( logId );
 
     }
 
-    /**
-     * This method returns a thread-safe reference to this repository singleton
-     *
-     * @return          The LoggerBotEntryRepo singleton
-     */
-    public static LoggerBotEntryParameterRepo getInstance() {
+    public static List<LoggerBotEntryParameter> getParametersListForLogEntryId( Context context, int logEntryId ) {
 
-        LoggerBotEntryParameterRepo result = sInstance;
-
-        if ( result == null ) {
-
-            // Ensures thread safety
-            synchronized ( lockObject ) {
-
-                result = sInstance;
-                if( result == null ) {
-
-                    sInstance = result = new LoggerBotEntryParameterRepo();
-
-                }
-
-            }
-
-        }
-
-        return result;
+        return AppDatabase.getDatabase( context ).parameterDao().getParametersForLogEntry( logEntryId );
 
     }
 

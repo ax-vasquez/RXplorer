@@ -19,16 +19,6 @@ import io.reactivex.Single;
  */
 public class LoggerBotEntryRepo {
 
-    private static final String TAG = "LoggerBotEntryRepo";
-
-    private static LoggerBotEntryRepo sInstance = null;
-
-    private static final Object lockObject = new Object();
-
-    private LoggerBotEntryRepo(){
-
-    }
-
     public static void insertLogEntry( Context context, LoggerBotEntry loggerBotEntry) {
 
         AppDatabase.getDatabase( context ).logEntryDao().insert(loggerBotEntry);
@@ -97,35 +87,6 @@ public class LoggerBotEntryRepo {
     public static List<LoggerBotEntry> getAllLogEntriesForParentMethod(Context context, String parentMethod ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().fetchAllForParentMethodName( parentMethod );
-
-    }
-
-    /**
-     * This method returns a thread-safe reference to this repository singleton
-     *
-     * @return          The LoggerBotEntryRepo singleton
-     */
-    public static LoggerBotEntryRepo getInstance() {
-
-        LoggerBotEntryRepo result = sInstance;
-
-        if ( result == null ) {
-
-            // Ensures thread safety
-            synchronized ( lockObject ) {
-
-                result = sInstance;
-                if( result == null ) {
-
-                    sInstance = result = new LoggerBotEntryRepo();
-
-                }
-
-            }
-
-        }
-
-        return result;
 
     }
 
