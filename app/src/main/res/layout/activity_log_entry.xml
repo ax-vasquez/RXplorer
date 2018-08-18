@@ -4,7 +4,7 @@
     android:id="@+id/log_entry_detail"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.LogEntryActivity">
+    tools:context=".ui.view.LogEntryActivity">
 
     <Switch
         android:id="@+id/checkbox_log_entry_is_saved"

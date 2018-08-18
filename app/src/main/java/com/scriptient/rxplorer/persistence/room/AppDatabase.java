@@ -10,6 +10,11 @@ import com.scriptient.rxplorer.persistence.model.LoggerBotEntryParameter;
 import com.scriptient.rxplorer.persistence.room.dao.LoggerBotEntryDao;
 import com.scriptient.rxplorer.persistence.room.dao.LoggerBotEntryParameterDao;
 
+/**
+ * Database for the application
+ *
+ * @see <a href="https://android.jlelse.eu/android-architecture-components-room-relationships-bf473510c14a">Room Relationships</a>
+ */
 @Database( entities = {
         LoggerBotEntry.class,
         LoggerBotEntryParameter.class

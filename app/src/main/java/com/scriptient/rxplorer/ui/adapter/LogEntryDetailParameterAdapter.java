@@ -1,4 +1,4 @@
-package com.scriptient.rxplorer.ui;
+package com.scriptient.rxplorer.ui.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -11,31 +11,24 @@ import com.scriptient.rxplorer.R;
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntryParameter;
 
 import java.util.List;
+import java.util.Map;
 
 public class LogEntryDetailParameterAdapter extends RecyclerView.Adapter<LogEntryDetailParameterAdapter.ViewHolder> {
 
     private List<LoggerBotEntryParameter> logEntryParameters;
 
+    private Map<String, String> parameterMap;
+
+    public LogEntryDetailParameterAdapter( Map<String, String> parameterMap ) {
+
+        this.parameterMap = parameterMap;
+
+    }
+
     public LogEntryDetailParameterAdapter( List<LoggerBotEntryParameter> logEntryParameters ) {
 
         this.logEntryParameters = logEntryParameters;
 
-    }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder {
-
-        TextView mTextViewParameterDataType;
-        TextView mTextViewParameterName;
-        TextView mTextViewParameterValue;
-
-        public ViewHolder(View itemView) {
-            super(itemView);
-
-            mTextViewParameterDataType = itemView.findViewById( R.id.parameter_data_type );
-            mTextViewParameterName = itemView.findViewById( R.id.parameter_name );
-            mTextViewParameterValue = itemView.findViewById( R.id.parameter_value );
-
-        }
     }
 
     @NonNull
@@ -55,7 +48,6 @@ public class LogEntryDetailParameterAdapter extends RecyclerView.Adapter<LogEntr
         LoggerBotEntryParameter parameter = logEntryParameters.get( position );
 
         holder.mTextViewParameterDataType.setText( parameter.getParameterDataType() );
-        holder.mTextViewParameterName.setText( parameter.getParameterName() );
         holder.mTextViewParameterValue.setText( parameter.getParameterValue() );
 
     }
@@ -63,6 +55,20 @@ public class LogEntryDetailParameterAdapter extends RecyclerView.Adapter<LogEntr
     @Override
     public int getItemCount() {
         return logEntryParameters.size();
+    }
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+
+        TextView mTextViewParameterDataType;
+        TextView mTextViewParameterValue;
+
+        public ViewHolder(View itemView) {
+            super(itemView);
+
+            mTextViewParameterDataType = itemView.findViewById( R.id.parameter_data_type );
+            mTextViewParameterValue = itemView.findViewById( R.id.parameter_value );
+
+        }
     }
 
 }

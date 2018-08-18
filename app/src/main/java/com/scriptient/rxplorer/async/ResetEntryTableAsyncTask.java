@@ -9,11 +9,11 @@ import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryRepo;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
-public class EntryTableResetAsyncTask extends AsyncTask<Void, Void, Void> {
+public class ResetEntryTableAsyncTask extends AsyncTask<Void, Void, Void> {
 
     private WeakReference<View> viewWeakReference;
 
-    public EntryTableResetAsyncTask(View view ) {
+    public ResetEntryTableAsyncTask(View view ) {
 
         viewWeakReference = new WeakReference<>( view );
 

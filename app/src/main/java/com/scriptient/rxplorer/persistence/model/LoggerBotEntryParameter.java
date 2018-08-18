@@ -20,25 +20,22 @@ foreignKeys = @ForeignKey(
 public class LoggerBotEntryParameter {
 
     @PrimaryKey(autoGenerate = true)
-    private Integer id;
+    private Long id;
 
     @ColumnInfo(name = "parent_log_id")
-    private Integer parentLogId;
+    private Long parentLogId;
 
     @ColumnInfo(name = "data_type")
     private String parameterDataType;
 
-    @ColumnInfo(name = "name")
-    private String parameterName;
-
     @ColumnInfo(name = "value")
     private String parameterValue;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public Integer getParentLogId() {
+    public Long getParentLogId() {
         return parentLogId;
     }
 
@@ -46,28 +43,20 @@ public class LoggerBotEntryParameter {
         return parameterDataType;
     }
 
-    public String getParameterName() {
-        return parameterName;
-    }
-
     public String getParameterValue() {
         return parameterValue;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public void setParentLogId(Integer logId) {
+    public void setParentLogId(Long logId) {
         this.parentLogId = logId;
     }
 
     public void setParameterDataType(String parameterDataType) {
         this.parameterDataType = parameterDataType;
-    }
-
-    public void setParameterName(String parameterName) {
-        this.parameterName = parameterName;
     }
 
     public void setParameterValue(String parameterValue) {

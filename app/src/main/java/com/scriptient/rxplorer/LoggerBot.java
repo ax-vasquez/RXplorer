@@ -1,36 +1,39 @@
 package com.scriptient.rxplorer;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.View;
 
 import com.scriptient.rxplorer.async.EntryTableFetchAsyncTask;
 import com.scriptient.rxplorer.async.EntryTableModifyAsyncTask;
-import com.scriptient.rxplorer.async.EntryTableResetAsyncTask;
+import com.scriptient.rxplorer.async.InsertEntryAsyncTask;
+import com.scriptient.rxplorer.async.ResetEntryTableAsyncTask;
 import com.scriptient.rxplorer.async.ParameterTableModifyAsyncTask;
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntryParameter;
 import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryParameterRepo;
 import com.scriptient.rxplorer.persistence.room.repository.LoggerBotEntryRepo;
 
+import java.lang.reflect.Method;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Flowable;
 import io.reactivex.Single;
 
+/**
+ * LoggerBot
+ *
+ * @see <a href="http://tutorials.jenkov.com/java-reflection/methods.html">Method Object Usage</a>
+ * @see <a href="https://stackoverflow.com/questions/44364240/android-room-get-the-id-of-new-inserted-row-with-auto-generate">Getting ID of an Inserted Row in Room</a>
+ */
 public class LoggerBot {
-
-    /**
-     * This is used to assign unique IDs to log entries - even if the database is reset, DO NOT
-     * reset this value. This ensures that all log IDs are unique
-     */
-    private static Integer totalLogEntries = 0;
 
     public static final String NO_DATA = "No Data";
 
@@ -44,10 +47,95 @@ public class LoggerBot {
     private static LoggerBot sInstance;
 
     private EntryTableModifyAsyncTask modifyAsyncTask;
-    private EntryTableResetAsyncTask resetAsyncTask;
+    private ResetEntryTableAsyncTask resetAsyncTask;
     private EntryTableFetchAsyncTask fetchAsyncTask;
 
     private LoggerBot() {
+
+    }
+
+    public void logVerboseEvent( View view, String event, Method method, List<String> parameterValues ) {
+
+        String methodName = method.getName();
+        Class[] parameterTypes = method.getParameterTypes();
+
+        Map<String, String> matchedParameters = _generateMatchedParameterMap( parameterTypes, parameterValues );
+
+        LoggerBotEntry newEntry = new LoggerBotEntry();
+
+        newEntry.setTimestamp( _generateTimestamp() );
+        newEntry.setEvent( event );
+        newEntry.setLogLevel( LOG_LEVEL_VERBOSE );
+        newEntry.setParentMethod( methodName );
+
+        LoggerBotEntry[] entries = { newEntry };
+
+        InsertEntryAsyncTask insertEntryAsyncTask = new InsertEntryAsyncTask( view, matchedParameters );
+        insertEntryAsyncTask.execute( entries );
+
+
+    }
+
+    public void logInfoEvent( View view, String event, Method method, List<String> parameterValues ) {
+
+        String methodName = method.getName();
+        Class[] parameterTypes = method.getParameterTypes();
+
+        Map<String, String> matchedParameters = _generateMatchedParameterMap( parameterTypes, parameterValues );
+
+        LoggerBotEntry newEntry = new LoggerBotEntry();
+
+        newEntry.setTimestamp( _generateTimestamp() );
+        newEntry.setEvent( event );
+        newEntry.setLogLevel( LOG_LEVEL_INFO );
+        newEntry.setParentMethod( methodName );
+
+        LoggerBotEntry[] entries = { newEntry };
+
+        InsertEntryAsyncTask insertEntryAsyncTask = new InsertEntryAsyncTask( view, matchedParameters );
+        insertEntryAsyncTask.execute( entries );
+
+    }
+
+    public void logWarnEvent( View view, String event, Method method, List<String> parameterValues ) {
+
+        String methodName = method.getName();
+        Class[] parameterTypes = method.getParameterTypes();
+
+        Map<String, String> matchedParameters = _generateMatchedParameterMap( parameterTypes, parameterValues );
+
+        LoggerBotEntry newEntry = new LoggerBotEntry();
+
+        newEntry.setTimestamp( _generateTimestamp() );
+        newEntry.setEvent( event );
+        newEntry.setLogLevel( LOG_LEVEL_WARN );
+        newEntry.setParentMethod( methodName );
+
+        LoggerBotEntry[] entries = { newEntry };
+
+        InsertEntryAsyncTask insertEntryAsyncTask = new InsertEntryAsyncTask( view, matchedParameters );
+        insertEntryAsyncTask.execute( entries );
+
+    }
+
+    public void logErrorEvent( View view, String event, Method method, List<String> parameterValues ) {
+
+        String methodName = method.getName();
+        Class[] parameterTypes = method.getParameterTypes();
+
+        Map<String, String> matchedParameters = _generateMatchedParameterMap( parameterTypes, parameterValues );
+
+        LoggerBotEntry newEntry = new LoggerBotEntry();
+
+        newEntry.setTimestamp( _generateTimestamp() );
+        newEntry.setEvent( event );
+        newEntry.setLogLevel( LOG_LEVEL_ERROR );
+        newEntry.setParentMethod( methodName );
+
+        LoggerBotEntry[] entries = { newEntry };
+
+        InsertEntryAsyncTask insertEntryAsyncTask = new InsertEntryAsyncTask( view, matchedParameters );
+        insertEntryAsyncTask.execute( entries );
 
     }
 
@@ -64,8 +152,6 @@ public class LoggerBot {
 
         LoggerBotEntry logEntry = new LoggerBotEntry();
 
-        logEntry.setLogId( totalLogEntries ); // Set ID to the sequential count of this log entry
-
         logEntry.setEvent( event );
         logEntry.setTimestamp( _generateTimestamp() );
         logEntry.setLogLevel( logLevel );
@@ -73,21 +159,13 @@ public class LoggerBot {
         logEntry.setContent( logContent );
         logEntry.setSaved( false );
 
-        for ( LoggerBotEntryParameter parameter : parameters ) {
-
-            parameter.setParentLogId( totalLogEntries );
-
-        }
-
         modifyAsyncTask = new EntryTableModifyAsyncTask( view, EntryTableModifyAsyncTask.MODIFY_INSERT, logEntry );
         modifyAsyncTask.execute();
 
-        // CURRENT LIMITATION
-        // Cannot use autogeneration of IDs for log entries as the ID won't be assigned until the entry has been added
+        // TODO: Figure out how to fetch the entry's ID once it's been persisted to the app database
+
         ParameterTableModifyAsyncTask parameterInsertTask = new ParameterTableModifyAsyncTask( view, parameters );
         parameterInsertTask.execute();
-
-        totalLogEntries++;
 
     }
 
@@ -97,7 +175,7 @@ public class LoggerBot {
      * @param context
      * @return
      */
-    public Flowable<List<LoggerBotEntry>> getLogEntryFlowable( Context context) {
+    public Flowable<List<LoggerBotEntry>> getLogEntryFlowable( Context context ) {
 
         return LoggerBotEntryRepo.getAllLogEntriesFlowableForLogLevel( context );
 
@@ -182,7 +260,7 @@ public class LoggerBot {
      */
     public void deleteUnsavedLogEntries( View view ) {
 
-        resetAsyncTask = new EntryTableResetAsyncTask( view );
+        resetAsyncTask = new ResetEntryTableAsyncTask( view );
         resetAsyncTask.execute();
 
     }
@@ -212,6 +290,30 @@ public class LoggerBot {
         DateFormat format = new SimpleDateFormat( "yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.US ); // "Z" to indicate UTC timezone
         format.setTimeZone( timeZone );
         return format.format( new Date() ); // Implicitly uses current time
+
+    }
+
+    /**
+     * Helper method to create a parameter map using the provided parameter types array and provided
+     * list of parameter values
+     *
+     * @param parameterTypes
+     * @param parameterValues
+     * @return
+     */
+    private Map<String, String> _generateMatchedParameterMap( Class[] parameterTypes, List<String> parameterValues ) {
+
+        Map<String, String> matchedParameters = new HashMap<>();
+
+        int i = 0;
+        for ( Class paramClassType : parameterTypes ) {
+
+            matchedParameters.put( paramClassType.getName(), parameterValues.get( i ) );
+            i++;
+
+        }
+
+        return matchedParameters;
 
     }
 

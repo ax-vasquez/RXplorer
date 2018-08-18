@@ -7,7 +7,7 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.Update;
 
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
-import com.scriptient.rxplorer.ui.LoggerViewFragment;
+import com.scriptient.rxplorer.ui.view.LoggerViewFragment;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import io.reactivex.Single;
 public interface LoggerBotEntryDao {
 
     @Insert
-    void insert( LoggerBotEntry loggerBotEntry );
+    Long insert( LoggerBotEntry loggerBotEntry );
 
     @Update
     void update( LoggerBotEntry loggerBotEntry );
@@ -60,7 +60,7 @@ public interface LoggerBotEntryDao {
      *     list of log entries, the flowable emits the entire list of log entries in its current state
      *     after the change takes place
      * <p>
-     *     The Consumer's behavior is defined in {@link com.scriptient.rxplorer.ui.LoggerViewFragment.ListConsumer}
+     *     The Consumer's behavior is defined in {@link LoggerViewFragment.ListConsumer}
      *
      * @return                          A Flowable that emits the current list of all log entries to its observers after a change takes place
      */

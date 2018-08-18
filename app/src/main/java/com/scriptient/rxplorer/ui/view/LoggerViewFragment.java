@@ -1,4 +1,4 @@
-package com.scriptient.rxplorer.ui;
+package com.scriptient.rxplorer.ui.view;
 
 import android.app.AlertDialog;
 import android.os.Bundle;
@@ -19,6 +19,9 @@ import com.scriptient.rxplorer.Injection;
 import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.ui.adapter.LoggerViewAdapter;
+import com.scriptient.rxplorer.ui.viewmodel.LoggerViewViewModel;
+import com.scriptient.rxplorer.ui.ViewModelFactory;
 import com.trello.rxlifecycle2.components.RxFragment;
 
 import java.util.ArrayList;

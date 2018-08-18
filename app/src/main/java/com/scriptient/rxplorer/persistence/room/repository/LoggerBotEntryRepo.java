@@ -19,9 +19,9 @@ import io.reactivex.Single;
  */
 public class LoggerBotEntryRepo {
 
-    public static void insertLogEntry( Context context, LoggerBotEntry loggerBotEntry) {
+    public static Long insertLogEntry( Context context, LoggerBotEntry loggerBotEntry) {
 
-        AppDatabase.getDatabase( context ).logEntryDao().insert(loggerBotEntry);
+        return AppDatabase.getDatabase( context ).logEntryDao().insert(loggerBotEntry);
 
     }
 

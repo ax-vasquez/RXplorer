@@ -1,4 +1,4 @@
-package com.scriptient.rxplorer.ui;
+package com.scriptient.rxplorer.ui.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.view.View;

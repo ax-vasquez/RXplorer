@@ -1,4 +1,4 @@
-package com.scriptient.rxplorer.ui;
+package com.scriptient.rxplorer.ui.adapter;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -15,6 +15,8 @@ import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
 import com.scriptient.rxplorer.async.EntryTableModifyAsyncTask;
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.ui.view.LogEntryActivity;
+import com.scriptient.rxplorer.ui.view.LoggerViewFragment;
 
 import java.util.List;
 
@@ -103,7 +105,7 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
 
             Log.i(TAG, "onBindViewHolder: Creating Bundle");
             Bundle logEntryFragmentParameters = new Bundle();
-            logEntryFragmentParameters.putInt( LoggerViewFragment.ENTRY_ID_KEY, entry.getLogId() );
+            logEntryFragmentParameters.putLong( LoggerViewFragment.ENTRY_ID_KEY, entry.getLogId() );
 
             Log.i(TAG, "onBindViewHolder: Obtaining local reference to Activity");
 

@@ -4,6 +4,7 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Ignore;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.Relation;
 import android.content.Intent;
 
 import java.util.List;
@@ -21,9 +22,9 @@ public class LoggerBotEntry {
     /**
      * The ID of this log entry
      */
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "log_id")
-    private Integer logId;
+    private Long logId;
 
     /**
      * The ID of the session this log entry belongs to
@@ -31,7 +32,7 @@ public class LoggerBotEntry {
      *     TODO: Create the Log Session Entity
      */
     @ColumnInfo(name = "session_id")
-    private Integer sessionId;
+    private Long sessionId;
 
     /**
      * The time this log event occurred at
@@ -70,11 +71,11 @@ public class LoggerBotEntry {
     @ColumnInfo(name = "log_content")
     private String content;
 
-    public Integer getLogId() {
+    public Long getLogId() {
         return logId;
     }
 
-    public Integer getSessionId() {
+    public Long getSessionId() {
         return sessionId;
     }
 
@@ -102,11 +103,11 @@ public class LoggerBotEntry {
         return content;
     }
 
-    public void setLogId(Integer logId) {
+    public void setLogId(Long logId) {
         this.logId = logId;
     }
 
-    public void setSessionId(Integer sessionId) {
+    public void setSessionId(Long sessionId) {
         this.sessionId = sessionId;
     }
 

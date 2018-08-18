@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.View;
 
 import com.scriptient.rxplorer.LoggerBot;
+import com.scriptient.rxplorer.ui.viewmodel.LogEntryDetailViewModel;
+import com.scriptient.rxplorer.ui.viewmodel.LoggerViewViewModel;
 
 import java.lang.ref.WeakReference;
 

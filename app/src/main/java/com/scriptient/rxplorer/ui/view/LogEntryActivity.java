@@ -1,4 +1,4 @@
-package com.scriptient.rxplorer.ui;
+package com.scriptient.rxplorer.ui.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
@@ -12,14 +12,13 @@ import android.widget.TextView;
 import com.scriptient.rxplorer.Injection;
 import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.R;
-import com.scriptient.rxplorer.persistence.model.LoggerBotEntryParameter;
+import com.scriptient.rxplorer.ui.adapter.LogEntryDetailParameterAdapter;
+import com.scriptient.rxplorer.ui.viewmodel.LogEntryDetailViewModel;
+import com.scriptient.rxplorer.ui.ViewModelFactory;
 import com.trello.rxlifecycle2.components.RxActivity;
-
-import java.util.List;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class LogEntryActivity extends RxActivity {

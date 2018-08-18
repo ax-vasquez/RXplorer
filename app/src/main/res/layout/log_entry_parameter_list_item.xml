@@ -14,15 +14,6 @@
         android:text="[DATA TYPE]" />
 
     <TextView
-        android:id="@+id/parameter_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="20dp"
-        android:textStyle="bold"
-        android:text="[PARAM NAME]" />
-
-    <TextView
         android:id="@+id/parameter_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

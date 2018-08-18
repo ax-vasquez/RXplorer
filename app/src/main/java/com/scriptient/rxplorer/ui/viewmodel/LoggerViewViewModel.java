@@ -1,4 +1,4 @@
-package com.scriptient.rxplorer.ui;
+package com.scriptient.rxplorer.ui.viewmodel;
 
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.scriptient.rxplorer.LoggerBot;
 import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
+import com.scriptient.rxplorer.ui.view.LoggerViewFragment;
 
 import java.lang.ref.WeakReference;
 import java.util.List;
