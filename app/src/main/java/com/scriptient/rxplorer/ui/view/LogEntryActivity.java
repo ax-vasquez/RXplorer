@@ -71,7 +71,7 @@ public class LogEntryActivity extends RxActivity {
     protected void onResume() {
         super.onResume();
 
-        int logEntryId = getIntent().getIntExtra( LoggerViewFragment.ENTRY_ID_KEY, 0 );
+        Long logEntryId = getIntent().getLongExtra( LoggerViewFragment.ENTRY_ID_KEY, 0L );
 
         _subscribeLogEntrySingle( logEntryId );
         _subscribeLogEntryParametersListSingle( logEntryId );
@@ -90,7 +90,7 @@ public class LogEntryActivity extends RxActivity {
      *
      * @param logEntryId
      */
-    private void _subscribeLogEntrySingle( Integer logEntryId ) {
+    private void _subscribeLogEntrySingle( Long logEntryId ) {
 
         disposable.add(
                 viewModel
@@ -114,7 +114,7 @@ public class LogEntryActivity extends RxActivity {
      *
      * @param logEntryId
      */
-    private void _subscribeLogEntryParametersListSingle( Integer logEntryId ) {
+    private void _subscribeLogEntryParametersListSingle( Long logEntryId ) {
 
         disposable.add(
                 viewModel
@@ -123,7 +123,6 @@ public class LogEntryActivity extends RxActivity {
                         .observeOn( AndroidSchedulers.mainThread() )
                         .subscribe(loggerBotEntryParameters -> {
 
-                            // TODO: figure out why the parameters here are empty
                             Log.i(TAG, "_subscribeLogEntryParametersListSingle: Setting Adapter data with set size: " + loggerBotEntryParameters.size() );
                             mAdapter = new LogEntryDetailParameterAdapter( loggerBotEntryParameters );
                             mRecyclerView.setAdapter( mAdapter );

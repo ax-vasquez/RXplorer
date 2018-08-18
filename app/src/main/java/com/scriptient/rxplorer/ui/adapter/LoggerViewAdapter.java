@@ -18,6 +18,7 @@ import com.scriptient.rxplorer.persistence.model.LoggerBotEntry;
 import com.scriptient.rxplorer.ui.view.LogEntryActivity;
 import com.scriptient.rxplorer.ui.view.LoggerViewFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.ViewHolder> {
@@ -45,9 +46,9 @@ public class LoggerViewAdapter extends RecyclerView.Adapter<LoggerViewAdapter.Vi
         }
     }
 
-    public LoggerViewAdapter( List<LoggerBotEntry> entriesToDisplay ) {
+    public LoggerViewAdapter( ) {
 
-        currentLogData = entriesToDisplay;
+        currentLogData = new ArrayList<>();
 
     }
 

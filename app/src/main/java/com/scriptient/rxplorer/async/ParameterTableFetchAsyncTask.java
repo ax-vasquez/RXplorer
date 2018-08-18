@@ -13,9 +13,9 @@ public class ParameterTableFetchAsyncTask extends AsyncTask<Void, Void, List<Log
 
     private WeakReference<View> viewWeakReference;
 
-    private int logEntryId;
+    private Long logEntryId;
 
-    public ParameterTableFetchAsyncTask( View view, int logEntryId ) {
+    public ParameterTableFetchAsyncTask( View view, Long logEntryId ) {
 
         this.logEntryId = logEntryId;
         viewWeakReference = new WeakReference<>( view );

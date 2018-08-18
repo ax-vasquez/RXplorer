@@ -33,13 +33,13 @@ public class LoggerBotEntryParameterRepo {
 
     }
 
-    public static Single<List<LoggerBotEntryParameter>> getParametersSingleForLogEntryId(Context context, int logId ) {
+    public static Single<List<LoggerBotEntryParameter>> getParametersSingleForLogEntryId(Context context, Long logId ) {
 
         return AppDatabase.getDatabase( context ).parameterDao().getParametersForLogEntrySingle( logId );
 
     }
 
-    public static List<LoggerBotEntryParameter> getParametersListForLogEntryId( Context context, int logEntryId ) {
+    public static List<LoggerBotEntryParameter> getParametersListForLogEntryId( Context context, Long logEntryId ) {
 
         return AppDatabase.getDatabase( context ).parameterDao().getParametersForLogEntry( logEntryId );
 

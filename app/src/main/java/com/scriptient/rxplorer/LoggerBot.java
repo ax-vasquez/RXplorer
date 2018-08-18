@@ -67,12 +67,12 @@ public class LoggerBot {
         newEntry.setEvent( event );
         newEntry.setLogLevel( LOG_LEVEL_VERBOSE );
         newEntry.setParentMethod( methodName );
+        newEntry.setSaved( false );
 
         LoggerBotEntry[] entries = { newEntry };
 
         InsertEntryAsyncTask insertEntryAsyncTask = new InsertEntryAsyncTask( view, matchedParameters );
         insertEntryAsyncTask.execute( entries );
-
 
     }
 
@@ -89,6 +89,7 @@ public class LoggerBot {
         newEntry.setEvent( event );
         newEntry.setLogLevel( LOG_LEVEL_INFO );
         newEntry.setParentMethod( methodName );
+        newEntry.setSaved( false );
 
         LoggerBotEntry[] entries = { newEntry };
 
@@ -110,6 +111,7 @@ public class LoggerBot {
         newEntry.setEvent( event );
         newEntry.setLogLevel( LOG_LEVEL_WARN );
         newEntry.setParentMethod( methodName );
+        newEntry.setSaved( false );
 
         LoggerBotEntry[] entries = { newEntry };
 
@@ -123,6 +125,8 @@ public class LoggerBot {
         String methodName = method.getName();
         Class[] parameterTypes = method.getParameterTypes();
 
+
+
         Map<String, String> matchedParameters = _generateMatchedParameterMap( parameterTypes, parameterValues );
 
         LoggerBotEntry newEntry = new LoggerBotEntry();
@@ -131,6 +135,7 @@ public class LoggerBot {
         newEntry.setEvent( event );
         newEntry.setLogLevel( LOG_LEVEL_ERROR );
         newEntry.setParentMethod( methodName );
+        newEntry.setSaved( false );
 
         LoggerBotEntry[] entries = { newEntry };
 
@@ -188,7 +193,7 @@ public class LoggerBot {
      * @param logId
      * @return
      */
-    public Single<LoggerBotEntry> getLogEntryById( Context context, int logId ) {
+    public Single<LoggerBotEntry> getLogEntryById( Context context, Long logId ) {
 
         return LoggerBotEntryRepo.getLogEntry( context, logId );
 
@@ -201,7 +206,7 @@ public class LoggerBot {
      * @param logId
      * @return
      */
-    public Single<List<LoggerBotEntryParameter>> getLogEntryParameters( Context context, int logId ) {
+    public Single<List<LoggerBotEntryParameter>> getLogEntryParameters( Context context, Long logId ) {
 
         return LoggerBotEntryParameterRepo.getParametersSingleForLogEntryId( context, logId );
 

@@ -132,13 +132,7 @@ public class LoggerViewFragment extends RxFragment {
 
         dataObserver = new RecyclerView.AdapterDataObserver() {};
 
-        try {
-            mAdapter = new LoggerViewAdapter( loggerBot.getAllLogEntriesByLogLevel( view, LoggerBot.LOG_LEVEL_VERBOSE ));
-        } catch (ExecutionException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        mAdapter = new LoggerViewAdapter();
 
         mAdapter.registerAdapterDataObserver( dataObserver );
 

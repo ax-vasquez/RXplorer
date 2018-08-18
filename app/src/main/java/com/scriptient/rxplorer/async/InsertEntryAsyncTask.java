@@ -24,6 +24,8 @@ public class InsertEntryAsyncTask extends AsyncTask<LoggerBotEntry, Void, Void> 
 
     public InsertEntryAsyncTask( View view, Map<String, String> logEntryParameterMap ) {
 
+        Log.i(TAG, "InsertEntryAsyncTask: Constructing with new Map Size: " + logEntryParameterMap.size() );
+
         viewWeakReference = new WeakReference<>( view );
         entryParameters = new ArrayList<>();
 

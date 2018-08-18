@@ -24,13 +24,13 @@ public class LogEntryDetailViewModel extends ViewModel {
 
     }
 
-    public Single<LoggerBotEntry> getLogEntryById( int logId ) {
+    public Single<LoggerBotEntry> getLogEntryById( Long logId ) {
 
         return loggerBot.getLogEntryById( viewWeakReference.get().getContext(), logId );
 
     }
 
-    public Single<List<LoggerBotEntryParameter>> getLogEntryParameters( int logId ) {
+    public Single<List<LoggerBotEntryParameter>> getLogEntryParameters( Long logId ) {
 
         return loggerBot.getLogEntryParameters( viewWeakReference.get().getContext(), logId );
 

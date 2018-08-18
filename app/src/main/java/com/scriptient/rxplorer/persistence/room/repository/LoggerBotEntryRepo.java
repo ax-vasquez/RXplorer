@@ -70,7 +70,7 @@ public class LoggerBotEntryRepo {
 
     }
 
-    public static Single<LoggerBotEntry> getLogEntry(Context context, int logId ) {
+    public static Single<LoggerBotEntry> getLogEntry(Context context, Long logId ) {
 
         return AppDatabase.getDatabase( context ).logEntryDao().getLogEntrySingle( logId );
 
