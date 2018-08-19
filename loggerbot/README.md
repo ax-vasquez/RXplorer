@@ -18,10 +18,10 @@ LoggerBot contains 4 log levels - there are currently no restrictions or recomme
 
 ## Logging Events
 There are four methods used to log events:
-1. `logVerboseEvent()`
-2. `logInfoEvent()`
-3. `logWarnEvent()`
-4. `logErrorEvent()`
+1. [`logVerboseEvent()`](https://github.com/ax-vasquez/RXplorer/blob/1cc614187f9199d1532eb35adfca31973c92cf5d/loggerbot/src/main/java/com/scriptient/rxplorer/LoggerBot.java#L57)
+2. [`logInfoEvent()`](https://github.com/ax-vasquez/RXplorer/blob/1cc614187f9199d1532eb35adfca31973c92cf5d/loggerbot/src/main/java/com/scriptient/rxplorer/LoggerBot.java#L79)
+3. [`logWarnEvent()`](https://github.com/ax-vasquez/RXplorer/blob/1cc614187f9199d1532eb35adfca31973c92cf5d/loggerbot/src/main/java/com/scriptient/rxplorer/LoggerBot.java#L101)
+4. [`logErrorEvent()`](https://github.com/ax-vasquez/RXplorer/blob/1cc614187f9199d1532eb35adfca31973c92cf5d/loggerbot/src/main/java/com/scriptient/rxplorer/LoggerBot.java#L123)
 
 All four of these methods take the same 4 parameters:
 1. `View view`
