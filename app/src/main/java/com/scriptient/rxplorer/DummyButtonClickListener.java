@@ -1,8 +1,6 @@
-package com.scriptient.rxplorer.ui.listener;
+package com.scriptient.rxplorer;
 
 import android.view.View;
-
-import com.scriptient.rxplorer.LoggerBot;
 
 import java.lang.reflect.Method;
 import java.util.ArrayList;

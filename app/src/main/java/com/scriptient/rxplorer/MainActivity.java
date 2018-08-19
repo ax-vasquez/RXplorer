@@ -1,15 +1,13 @@
-package com.scriptient.rxplorer.ui.view;
+package com.scriptient.rxplorer;
 
 import android.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 
-import com.scriptient.rxplorer.LoggerBot;
-import com.scriptient.rxplorer.R;
-import com.scriptient.rxplorer.ui.listener.DummyButtonClickListener;
-import com.trello.rxlifecycle2.components.RxActivity;
+import com.scriptient.rxplorer.ui.view.LoggerViewFragment;
 
-public class MainActivity extends RxActivity {
+public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
 
@@ -41,6 +39,7 @@ public class MainActivity extends RxActivity {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace( R.id.logger_view_placeholder, new LoggerViewFragment() );
         transaction.commit();
+
     }
 
 

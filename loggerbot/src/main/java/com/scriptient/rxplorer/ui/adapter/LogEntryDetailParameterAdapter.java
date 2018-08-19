@@ -36,7 +36,7 @@ public class LogEntryDetailParameterAdapter extends RecyclerView.Adapter<LogEntr
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View v = LayoutInflater.from( parent.getContext() )
-                .inflate( R.layout.log_entry_parameter_list_item, parent, false );
+                .inflate( R.layout.log_entry__parameter_list_item, parent, false );
 
         return new ViewHolder( v );
 
