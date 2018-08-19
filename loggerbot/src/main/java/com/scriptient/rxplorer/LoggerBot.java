@@ -145,36 +145,6 @@ public class LoggerBot {
     }
 
     /**
-     * Create and save a new log entry to the app database
-     *
-     * @param view                  The view this method is being called from
-     * @param parentMethod          The parent method this is being called from
-     * @param logLevel              The log level to create this entry with
-     * @param logContent            The log content for this log entry
-     * @return
-     */
-    public void createNewLogEntry(View view, String event, String parentMethod, String logLevel, String logContent, List<LoggerBotEntryParameter> parameters ) {
-
-        LoggerBotEntry logEntry = new LoggerBotEntry();
-
-        logEntry.setEvent( event );
-        logEntry.setTimestamp( _generateTimestamp() );
-        logEntry.setLogLevel( logLevel );
-        logEntry.setParentMethod( parentMethod );
-        logEntry.setContent( logContent );
-        logEntry.setSaved( false );
-
-        modifyAsyncTask = new EntryTableModifyAsyncTask( view, EntryTableModifyAsyncTask.MODIFY_INSERT, logEntry );
-        modifyAsyncTask.execute();
-
-        // TODO: Figure out how to fetch the entry's ID once it's been persisted to the app database
-
-        ParameterTableModifyAsyncTask parameterInsertTask = new ParameterTableModifyAsyncTask( view, parameters );
-        parameterInsertTask.execute();
-
-    }
-
-    /**
      * Obtain a reactive list of log entries
      *
      * @param context

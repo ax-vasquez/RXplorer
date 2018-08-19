@@ -38,7 +38,7 @@ public class DummyButtonClickListener implements View.OnClickListener {
         }
 
         List<String> parameterValues = new ArrayList<>();
-        parameterValues.add( "v" );
+        parameterValues.add( "view" );
 
         switch ( logLevel ) {
 
