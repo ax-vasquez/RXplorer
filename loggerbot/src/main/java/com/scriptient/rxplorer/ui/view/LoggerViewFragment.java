@@ -381,7 +381,7 @@ public class LoggerViewFragment extends RxFragment {
     public class ListConsumer implements Consumer<List<LoggerBotEntry>> {
 
         @Override
-        public void accept(List<LoggerBotEntry> logEntries) throws Exception {
+        public void accept(List<LoggerBotEntry> logEntries) {
 
             Log.i(TAG, "accept: List Updated with size: " + logEntries.size() );
 

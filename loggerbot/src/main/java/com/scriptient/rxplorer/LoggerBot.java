@@ -46,7 +46,6 @@ public class LoggerBot {
 
     private static LoggerBot sInstance;
 
-    private EntryTableModifyAsyncTask modifyAsyncTask;
     private ResetEntryTableAsyncTask resetAsyncTask;
     private EntryTableFetchAsyncTask fetchAsyncTask;
 
