@@ -4,6 +4,8 @@ LoggerBot is an in-app logging utility intended to simplify the testing and debu
 LoggerBot implementations should be set up so that there is little-to-no need for a tester to connect the device to Android Studio to obtain the logs. Exactly how this is implemented is dependent on your needs.
 
 _**IMPORTANT: You should not enable LoggerBot by default - it's only intended to be used for debugging purposes. This is not a blind warning; LoggerBot relies on the Reflection API to obtain method data. The Reflection API adds a substantial amount of performance overhead and should therefore only be enabled in testing.**_
+- Oracle claims that the Reflection API is relatively advanced and "should be used only by developers who have a strong grasp of the fundamentals of the language"
+    - I realize that not everyone may be comfortable messing with the Reflection API, so I will find a way to minimize direct interaction with it soon
 
 ## Log Levels
 LoggerBot contains 4 log levels - there are currently no restrictions or recommendations on which log level to use for a given event. The log level only changes the appearance of the entry in the Logger View's RecyclerView. The available log levels to you are:
